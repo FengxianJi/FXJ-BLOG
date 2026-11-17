@@ -1,0 +1,16 @@
+title: "FXJ · Research Notes"
+description: "EvidencePatch research updates and notes on reliable scientific evaluation."
+url: "https://fengxianji.github.io"
+baseurl: "/FXJ-BLOG"
+lang: zh-CN
+markdown: kramdown
+permalink: /:categories/:year/:month/:day/:title/
+plugins:
+  - jekyll-feed
+  - jekyll-seo-tag
+exclude:
+  - README.md
+  - LICENSE
+  - Gemfile
+  - Gemfile.lock
+  - vendor

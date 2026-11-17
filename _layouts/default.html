@@ -1,0 +1,20 @@
+<!doctype html>
+<html lang="{{ site.lang | default: 'zh-CN' }}">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>{% if page.title %}{{ page.title }} · {% endif %}{{ site.title }}</title>
+    <meta name="description" content="{{ page.excerpt | default: site.description | strip_html | normalize_whitespace | escape }}">
+    <link rel="stylesheet" href="{{ '/assets/css/style.css' | relative_url }}">
+    {% feed_meta %}
+    {% seo %}
+  </head>
+  <body>
+    <header class="site-header"><div class="wrap header-inner">
+      <a class="brand" href="{{ '/' | relative_url }}">FXJ<span> · Research Notes</span></a>
+      <nav><a href="{{ '/' | relative_url }}">文章</a><a href="{{ '/about/' | relative_url }}">关于</a></nav>
+    </div></header>
+    <main class="wrap main-content">{{ content }}</main>
+    <footer class="site-footer"><div class="wrap">研究记录 · EvidencePatch · <a href="https://github.com/FengxianJi/FXJ-BLOG">GitHub</a></div></footer>
+  </body>
+</html>
