@@ -4,7 +4,7 @@ EvidencePatch 项目的研究博客，使用 Jekyll + GitHub Pages 发布，评�
 
 ## 内容维护
 
-- 新文章放进 `_posts/`，文件名格式：`YYYY-MM-DD-title.md`。
+- 新文章放进 `_posts/`，文件名格式：`YYYY-MM-DD-title.md`。中英文稿使用 `lang` 和 `translation_url` 相互链接；首页与文章导航均可切换语言。
 - 每篇文章使用 Jekyll front matter；设置 `comments: true` 可显示 giscus 评论。
 - 修改并推送到 `main` 后，GitHub Actions 会自动构建和部署。
 

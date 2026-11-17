@@ -2,6 +2,8 @@
 layout: default
 title: 关于
 permalink: /about/
+lang: zh-CN
+translation_url: /en/about/
 ---
 # 关于这个博客
 

@@ -12,7 +12,15 @@
   <body>
     <header class="site-header"><div class="wrap header-inner">
       <a class="brand" href="{{ '/' | relative_url }}">FXJ<span> · Research Notes</span></a>
-      <nav><a href="{{ '/' | relative_url }}">文章</a><a href="{{ '/about/' | relative_url }}">关于</a></nav>
+      <nav>
+        {% if page.lang == 'en' %}
+          <a href="{{ '/en/' | relative_url }}">Posts</a><a href="{{ '/en/about/' | relative_url }}">About</a>
+          <a class="language-switch" href="{{ page.translation_url | default: '/' | relative_url }}" lang="zh-CN">中文</a>
+        {% else %}
+          <a href="{{ '/' | relative_url }}">文章</a><a href="{{ '/about/' | relative_url }}">关于</a>
+          <a class="language-switch" href="{{ page.translation_url | default: '/en/' | relative_url }}" lang="en">English</a>
+        {% endif %}
+      </nav>
     </div></header>
     <main class="wrap main-content">{{ content }}</main>
     <footer class="site-footer"><div class="wrap">研究记录 · EvidencePatch · <a href="https://github.com/FengxianJi/FXJ-BLOG">GitHub</a></div></footer>

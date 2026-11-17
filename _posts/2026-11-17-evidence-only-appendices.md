@@ -3,6 +3,8 @@ layout: post
 title: "我们给 300 篇论文补充了证据，AI 审稿评分却下降了"
 date: 2026-11-17 10:00:00 +0000
 categories: research
+lang: zh-CN
+translation_url: /en/research/2026/11/17/evidence-only-appendices/
 comments: true
 ---
 

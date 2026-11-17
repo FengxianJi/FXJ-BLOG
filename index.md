@@ -1,6 +1,8 @@
 ---
 layout: default
 title: 研究文章
+lang: zh-CN
+translation_url: /en/
 ---
 <section class="home-intro">
   <p class="eyebrow">RESEARCH LOG · EVIDENCEPATCH</p>
@@ -9,5 +11,6 @@ title: 研究文章
 </section>
 <h2>最新文章</h2>
 <ul class="post-list">
-  {% for post in site.posts %}<li><span class="post-date">{{ post.date | date: "%Y-%m-%d" }}</span><h2><a href="{{ post.url | relative_url }}">{{ post.title }}</a></h2><p>{{ post.excerpt | strip_html | truncate: 220 }}</p></li>{% endfor %}
+  {% assign localized_posts = site.posts | where: "lang", "zh-CN" %}
+  {% for post in localized_posts %}<li><span class="post-date">{{ post.date | date: "%Y-%m-%d" }}</span><h2><a href="{{ post.url | relative_url }}">{{ post.title }}</a></h2><p>{{ post.excerpt | strip_html | truncate: 220 }}</p></li>{% endfor %}
 </ul>
