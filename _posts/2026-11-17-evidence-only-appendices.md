@@ -6,6 +6,7 @@ last_modified_at: 2026-11-18
 categories: research
 permalink: /research/2026/11/17/evidence-only-appendices/
 lang: zh-CN
+author: "Fengxian Ji, Fan Zhang, Jingpu Yang, Zhuohan Xie"
 translation_url: /en/research/2026/11/17/evidence-only-appendices/
 comments: true
 math: true
@@ -248,3 +249,20 @@ EvidencePatch 当前最清楚的发现，是这条反馈链需要逐环节评估
 | 结果复算和绘图 | [scripts/](https://github.com/FengxianJi/EvidencePatch/tree/main/scripts) |
 
 下载仓库后运行 `python3 scripts/reproduce_results.py`，即可用匿名数值数据复算主要均值、相关性和分歧计数，不需要 API 或 GPU。方法示例使用单独标明的合成输入。原始论文、评审文本、密钥和模型原始响应不在仓库中；原始 API 实验及专家裁定无法仅凭这些公开资源重现。完整运行范围见仓库 README。
+
+## 引用本文
+
+Fengxian Ji, Fan Zhang, Jingpu Yang, Zhuohan Xie. (2026). *EvidencePatch：根据 AI 审稿意见修改论文，怎样才算改好了？* 研究博客。中英文页面为同一篇文章；BibTeX 统一使用英文标题和链接。
+
+[下载 BibTeX]({{ '/assets/citations/evidencepatch.bib' | relative_url }})。
+
+```bibtex
+@misc{ji2026evidencepatch,
+  author       = {Ji, Fengxian and Zhang, Fan and Yang, Jingpu and Xie, Zhuohan},
+  title        = {{EvidencePatch}: When Does Revising a Paper from {AI} Reviews Actually Help?},
+  year         = {2026},
+  month        = nov,
+  url          = {https://fengxianji.github.io/FXJ-BLOG/en/research/2026/11/17/evidence-only-appendices/},
+  note         = {Research blog; accompanying code and experimental resources: https://github.com/FengxianJi/EvidencePatch}
+}
+```

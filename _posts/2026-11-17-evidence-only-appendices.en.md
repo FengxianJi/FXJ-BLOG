@@ -6,6 +6,7 @@ last_modified_at: 2026-11-18
 categories: research
 permalink: /en/research/2026/11/17/evidence-only-appendices/
 lang: en
+author: "Fengxian Ji, Fan Zhang, Jingpu Yang, Zhuohan Xie"
 translation_url: /research/2026/11/17/evidence-only-appendices/
 comments: true
 math: true
@@ -246,3 +247,20 @@ The [public EvidencePatch repository](https://github.com/FengxianJi/EvidencePatc
 | Reproduction and plotting commands | [scripts/](https://github.com/FengxianJi/EvidencePatch/tree/main/scripts) |
 
 After downloading the repository, run `python3 scripts/reproduce_results.py` to recompute headline means, correlation, and disagreement counts without API calls or a GPU. Method demonstrations use explicitly synthetic inputs. Source papers, review text, credentials, and raw model responses are excluded. The original API study and expert adjudication cannot be reproduced from these public artifacts alone; the repository README describes the supported scope.
+
+## Cite this article
+
+Fengxian Ji, Fan Zhang, Jingpu Yang, and Zhuohan Xie. (2026). *EvidencePatch: When Does Revising a Paper from AI Reviews Actually Help?* Research blog.
+
+[Download BibTeX]({{ '/assets/citations/evidencepatch.bib' | relative_url }}).
+
+```bibtex
+@misc{ji2026evidencepatch,
+  author       = {Ji, Fengxian and Zhang, Fan and Yang, Jingpu and Xie, Zhuohan},
+  title        = {{EvidencePatch}: When Does Revising a Paper from {AI} Reviews Actually Help?},
+  year         = {2026},
+  month        = nov,
+  url          = {https://fengxianji.github.io/FXJ-BLOG/en/research/2026/11/17/evidence-only-appendices/},
+  note         = {Research blog; accompanying code and experimental resources: https://github.com/FengxianJi/EvidencePatch}
+}
+```
