@@ -9,7 +9,7 @@ translation_url: /research/2026/11/18/completed-experiment-results/
 comments: true
 ---
 
-This post collects completed score-evaluation panels with aggregate metrics. The scores are AI-reviewer proxies; they are not expert-confirmed concern resolution and do not establish a change in scientific quality. The 95% confidence intervals use paper-level bootstrap resampling.
+The 95% confidence intervals use paper-level bootstrap resampling.
 
 ## Confirmatory 300-paper experiment
 

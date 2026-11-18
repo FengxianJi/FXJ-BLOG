@@ -9,7 +9,7 @@ translation_url: /en/research/2026/11/18/completed-experiment-results/
 comments: true
 ---
 
-本文汇总已经完成并有对应指标文件的评分实验。表格和图只展示聚合数据；评分变化是 AI 审稿评分代理，不等于专家确认的质疑解决，也不代表论文科学质量发生变化。95% 置信区间按论文 bootstrap 计算。
+95% 置信区间按论文 bootstrap 计算。
 
 ## 300 篇确认性主实验
 
