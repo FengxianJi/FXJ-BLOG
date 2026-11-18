@@ -10,11 +10,18 @@ author: "Fengxian Ji"
 translation_url: /en/research/2026/11/18/controlling-rsi-comparisons/
 comments: true
 math: true
+figure_count: 2
 ---
 
 自我改进科研智能体（recursive self-improvement，RSI）会反复提出修改、运行实验，再根据结果修订研究方案。比较两种 RSI 框架时，一个最终分数通常回答不了最重要的问题：**究竟是框架更会改进，还是它碰巧拿到了更容易的 idea、更有利的修改方向，或更多实验预算？**
 
 控制变量的作用，是让两种框架面对同一个起点和同一组约束，再观察它们的改进轨迹。它不能自动证明某个框架更好，却能让比较结果更接近这个问题：在其他条件相同的情况下，换用另一种框架会带来什么变化？
+
+**代码与公开结果：** [SciCTRL-Bench 开源代码](https://github.com/FengxianJi/SciCTRL-Bench-Open) · [下载 ZIP](https://github.com/FengxianJi/SciCTRL-Bench-Open/archive/refs/heads/main.zip) · [Pilot 汇总数据](https://github.com/FengxianJi/SciCTRL-Bench-Open/blob/main/results/pilot_summary.json)
+
+[![匹配同一 idea、修改方向和预算后比较 RSI 框架的设计示意图]({{ '/assets/scictrl-rsi/matched-controls.svg' | relative_url }})]({{ '/assets/scictrl-rsi/matched-controls.svg' | relative_url }})
+
+*图 1｜配对实验设计示意图：两种框架接收相同的 idea、数据、工具、模型、预算、评估器和预注册修改方向，再比较完整轨迹。该图描述评估方案，不是已完成的 RSI 对比结果。点击图片可打开 SVG 原图。*
 
 ## 一个总分为什么不够？
 
@@ -55,6 +62,19 @@ RSI 的过程很长，最终分数会把多种失败压成一个数字。一次�
 另一个早期诊断 pilot 在八个程序化任务家族上运行了 32 个任务，数值与最终源码验证均为 32/32 通过。盲测中，原始 proposal 的 16/16 个判断正确；经过改写的 proposal 为 14/16，平衡准确率 87.5%，AUC 0.883。控制压力测试还覆盖了 8 个家族、4 种实现和 3 个隐藏实例，共 96 次执行。
 
 这些数字来自当前项目的实验记录，配套逐任务记录尚未随本文公开。它们暴露了一个有用的问题：原始 proposal 盲测已经达到满分，任务可能不足以区分方法；改写后表现下降，则提示语义保持本身也需要单独检查。但这些实验不是两种 RSI 框架在匹配 idea 上的对照试验，不能据此说控制变量提高了 RSI 的性能。构造审计通过也只表示结构检查通过，不等于领域专家验证或真实科研有效性。
+
+| 诊断项目 | 观测结果 | 可以说明什么 | 不能说明什么 |
+|---|---:|---|---|
+| VSRO 构造审计 | 68 个案例；8/8 项结构 gate 通过 | 构造流程满足列出的结构检查 | 不能替代专家审查或证明任务具有真实科研效度 |
+| 八领域 CPU 诊断 pilot | 32/32 通过数值与最终源码检查；56 次模型调用 | 这些程序化任务可执行，最终产物通过指定检查 | 不是两个原生 RSI 框架之间的配对比较 |
+| 原始 proposal 盲测 | 16/16 正确，平衡准确率 100% | 当前测试样本上可完全区分标签 | 满分提示测试可能过易，不能证明跨任务泛化 |
+| 改写 proposal 盲测 | 14/16 正确；平衡准确率 87.5%；AUC 0.883 | 改写后仍有可测的分类信号 | 不能解释为 RSI 性能提升或因果效应 |
+| CPU 控制压力测试 | 96 次执行（8 家族 × 4 实现 × 3 隐藏实例） | 检查了多种实现下的指定控制情形 | 不等于 96 个独立科研项目或专家验证 |
+| DiscoveryBench 开发集审计 | 153 个任务；6/6 数据完整性检查通过 | 当前下载开发集通过列出的数据检查 | 各任务不是严格匹配的因果对，不能单独估计框架效应 |
+
+[![SciCTRL 诊断 pilot 中的任务检查、盲测和 CPU 压力测试结果]({{ '/assets/scictrl-rsi/pilot-diagnostics.svg' | relative_url }})]({{ '/assets/scictrl-rsi/pilot-diagnostics.svg' | relative_url }})
+
+*图 2｜32/32 数值与源码检查、两组 proposal 盲测的正确比例，以及独立报告的 96 次 CPU 控制压力测试。数据来自[公开汇总 JSON](https://github.com/FengxianJi/SciCTRL-Bench-Open/blob/main/results/pilot_summary.json)；它是诊断性 pilot，不是 RSI 框架排名。点击图片可打开 SVG 原图。*
 
 DiscoveryBench 的开发集审计包含 153 个任务，数据完整性检查 6/6 通过；不过其不同任务文件不是严格匹配的因果对，因此适合用于校准数据读取与难度覆盖，不宜单独用来估计 RSI 框架的因果差异。当前仍缺少在相同 idea、相同修改方向和相同预算下，对两种原生 RSI 框架的完整配对运行。
 

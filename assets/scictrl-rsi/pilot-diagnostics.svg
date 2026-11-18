@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1120" height="560" viewBox="0 0 1120 560" role="img" aria-labelledby="title desc">
+<title id="title">SciCTRL diagnostic pilot results</title>
+<desc id="desc">Thirty-two of thirty-two programmatic diagnostic tasks passed numerical and source checks. Sixteen of sixteen original proposals were classified correctly. Fourteen of sixteen rewritten proposals were classified correctly, with 87.5 percent balanced accuracy and AUC 0.883. Ninety-six separate CPU control stress executions were run.</desc>
+<rect width="1120" height="560" fill="#ffffff"/>
+<text x="560" y="46" text-anchor="middle" font-family="Inter,Arial,sans-serif" font-size="28" font-weight="700" fill="#102a43">Diagnostic pilot: strong checks, limited claims</text>
+<text x="82" y="105" font-family="Inter,Arial,sans-serif" font-size="15" font-weight="700" fill="#475569">PASS / CORRECT CLASSIFICATION</text>
+<text x="790" y="105" font-family="Inter,Arial,sans-serif" font-size="15" font-weight="700" fill="#475569">OBSERVED</text>
+<line x1="430" y1="123" x2="430" y2="377" stroke="#e2e8f0" stroke-width="2"/>
+<line x1="510" y1="123" x2="510" y2="377" stroke="#e2e8f0" stroke-width="1"/>
+<line x1="590" y1="123" x2="590" y2="377" stroke="#e2e8f0" stroke-width="1"/>
+<line x1="670" y1="123" x2="670" y2="377" stroke="#e2e8f0" stroke-width="1"/>
+<line x1="750" y1="123" x2="750" y2="377" stroke="#e2e8f0" stroke-width="1"/>
+<text x="430" y="402" text-anchor="middle" font-family="Inter,Arial,sans-serif" font-size="13" fill="#64748b">0%</text><text x="510" y="402" text-anchor="middle" font-family="Inter,Arial,sans-serif" font-size="13" fill="#64748b">20%</text><text x="590" y="402" text-anchor="middle" font-family="Inter,Arial,sans-serif" font-size="13" fill="#64748b">40%</text><text x="670" y="402" text-anchor="middle" font-family="Inter,Arial,sans-serif" font-size="13" fill="#64748b">60%</text><text x="750" y="402" text-anchor="middle" font-family="Inter,Arial,sans-serif" font-size="13" fill="#64748b">80%</text><text x="790" y="402" text-anchor="middle" font-family="Inter,Arial,sans-serif" font-size="13" fill="#64748b">100%</text>
+<text x="82" y="165" font-family="Inter,Arial,sans-serif" font-size="17" fill="#102a43">Numeric + final-source checks</text><rect x="430" y="143" width="360" height="28" rx="14" fill="#0f766e"/><text x="807" y="164" font-family="Inter,Arial,sans-serif" font-size="17" font-weight="700" fill="#115e59">32 / 32</text>
+<text x="82" y="245" font-family="Inter,Arial,sans-serif" font-size="17" fill="#102a43">Original proposal blind test</text><rect x="430" y="223" width="360" height="28" rx="14" fill="#0f766e"/><text x="807" y="244" font-family="Inter,Arial,sans-serif" font-size="17" font-weight="700" fill="#115e59">16 / 16</text>
+<text x="82" y="325" font-family="Inter,Arial,sans-serif" font-size="17" fill="#102a43">Rewritten proposal blind test</text><rect x="430" y="303" width="315" height="28" rx="14" fill="#d97706"/><text x="762" y="324" font-family="Inter,Arial,sans-serif" font-size="17" font-weight="700" fill="#9a3412">14 / 16</text><text x="842" y="324" font-family="Inter,Arial,sans-serif" font-size="15" fill="#64748b">balanced accuracy 87.5% · AUC 0.883</text>
+<rect x="82" y="440" width="956" height="58" rx="16" fill="#eff6ff" stroke="#bfdbfe" stroke-width="2"/><text x="110" y="476" font-family="Inter,Arial,sans-serif" font-size="17" font-weight="700" fill="#1d4ed8">CPU control stress</text><text x="313" y="476" font-family="Inter,Arial,sans-serif" font-size="17" fill="#102a43">96 executions = 8 families × 4 implementations × 3 hidden instances</text>
+<text x="560" y="535" text-anchor="middle" font-family="Inter,Arial,sans-serif" font-size="14" fill="#64748b">Programmatic diagnostic pilot only — no matched comparison of two RSI frameworks.</text>
+</svg>

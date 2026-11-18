@@ -10,11 +10,18 @@ author: "Fengxian Ji"
 translation_url: /research/2026/11/18/controlling-rsi-comparisons/
 comments: true
 math: true
+figure_count: 2
 ---
 
 Recursive self-improvement (RSI) agents repeatedly propose changes, run experiments, and revise their research plans in response to results. When we compare two RSI frameworks, a final score alone rarely answers the central question: **Did one framework improve the research more effectively, or did it happen to receive an easier idea, a more favorable revision direction, or a larger experimental budget?**
 
 Controls give both frameworks the same starting point and constraints, so we can examine their improvement trajectories under matched conditions. They do not prove by themselves that one framework is better. They make the comparison closer to a causal question: what changes when we switch frameworks while holding the other conditions fixed?
+
+**Code and public results:** [SciCTRL-Bench open-source code](https://github.com/FengxianJi/SciCTRL-Bench-Open) · [Download ZIP](https://github.com/FengxianJi/SciCTRL-Bench-Open/archive/refs/heads/main.zip) · [Pilot summary data](https://github.com/FengxianJi/SciCTRL-Bench-Open/blob/main/results/pilot_summary.json)
+
+[![Matched design for comparing RSI frameworks on the same idea, direction, and budget]({{ '/assets/scictrl-rsi/matched-controls.svg' | relative_url }})]({{ '/assets/scictrl-rsi/matched-controls.svg' | relative_url }})
+
+*Figure 1. A paired design gives both frameworks the same idea, data, tools, model, budget, evaluator, and preregistered revision direction, then compares their full trajectories. This is an evaluation schematic, not a completed RSI comparison. Click the image to open the SVG.*
 
 ## Why a single score is not enough
 
@@ -54,7 +61,20 @@ Our current results mainly check whether task construction and evaluation proced
 
 An earlier diagnostic pilot ran 32 tasks across eight programmatic task families. All 32 passed numerical and final-source verification. In a blind test, all 16 original proposals were classified correctly; rewritten proposals achieved 14/16, with 87.5% balanced accuracy and an AUC of 0.883. A CPU control stress test also covered eight families, four implementations, and three hidden instances, for 96 executions.
 
-These numbers come from current project records; the task-level records have not been released with this post. They reveal a useful issue: the original-proposal blind test already reached a ceiling, so the task may not distinguish methods well. The lower result after rewriting also shows why semantic preservation needs its own check. But these experiments do not compare two RSI frameworks on matched ideas. They cannot show that controls improve RSI performance. Passing a construction audit means only that structural checks passed; it is not expert validation or evidence of real-world scientific effectiveness.
+These numbers come from current project records; task-level traces and evaluator-only labels are not released. They reveal a useful issue: the original-proposal blind test already reached a ceiling, so the task may not distinguish methods well. The lower result after rewriting also shows why semantic preservation needs its own check. But these experiments do not compare two RSI frameworks on matched ideas. They cannot show that controls improve RSI performance. Passing a construction audit means only that structural checks passed; it is not expert validation or evidence of real-world scientific effectiveness.
+
+| Diagnostic | Observed result | What it supports | What it does not support |
+|---|---:|---|---|
+| VSRO construction audit | 68 cases; 8/8 structural gates passed | The constructor met the listed structural checks | Expert review or real-world scientific validity |
+| Eight-domain CPU diagnostic pilot | 32/32 passed numerical and final-source checks; 56 model calls | These programmatic tasks ran and passed the specified artifact checks | A paired comparison of two native RSI frameworks |
+| Original-proposal blind test | 16/16 correct; 100% balanced accuracy | Labels were fully separable on this sample | Generalization; a ceiling score may indicate an easy task |
+| Rewritten-proposal blind test | 14/16 correct; 87.5% balanced accuracy; AUC 0.883 | A measurable classification signal remained after rewriting | RSI improvement or a causal effect |
+| CPU control stress test | 96 executions (8 families × 4 implementations × 3 hidden instances) | Specified controls were checked across several implementations | 96 independent research projects or expert validation |
+| DiscoveryBench development audit | 153 tasks; 6/6 data-integrity checks passed | The downloaded development split passed the listed data checks | Framework effects; tasks are not strict matched causal pairs |
+
+[![Task checks, blind tests, and CPU stress-test counts from the SciCTRL diagnostic pilot]({{ '/assets/scictrl-rsi/pilot-diagnostics.svg' | relative_url }})]({{ '/assets/scictrl-rsi/pilot-diagnostics.svg' | relative_url }})
+
+*Figure 2. Numerical/source checks, proposal blind-test accuracy, and the separate 96-execution CPU control stress test. Values come from the [public aggregate JSON](https://github.com/FengxianJi/SciCTRL-Bench-Open/blob/main/results/pilot_summary.json). These are diagnostic-pilot results, not an RSI framework ranking. Click the image to open the SVG.*
 
 The DiscoveryBench development-set audit covers 153 tasks, with all six data-integrity checks passing. However, its task files are not strictly matched causal pairs. The split is useful for calibrating ingestion and task coverage, but it should not by itself estimate a causal difference between RSI frameworks. A complete paired run of two native RSI frameworks on the same ideas, revision directions, and budgets is still missing.
 
