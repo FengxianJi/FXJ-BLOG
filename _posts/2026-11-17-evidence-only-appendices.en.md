@@ -11,6 +11,8 @@ comments: true
 math: true
 ---
 
+**Code and experimental resources:** [GitHub repository](https://github.com/FengxianJi/EvidencePatch) · [Results and figures](https://github.com/FengxianJi/EvidencePatch/tree/main/results) · [Download ZIP](https://github.com/FengxianJi/EvidencePatch/archive/refs/heads/main.zip)
+
 Send a paper to an AI reviewer, follow its suggestions, and ask for another review. The loop feels natural. But what does a higher score establish? And what should we conclude when the model judges a response more adequate while giving the paper a lower score?
 
 EvidencePatch studies this feedback loop through evidence-grounded revision. Our current experiments show that improvement in a local concern-resolution proxy does not guarantee a higher overall AI recommendation score. Repeated evaluation of an unchanged version also produces paper-level variation.
@@ -230,3 +232,17 @@ Concern IDs, version hashes, and evidence records make these questions traceable
 Stopping should reflect evidence and budget. The system should stop when no supported action remains, when required experiments cannot currently be executed, or when the budget is exhausted, while preserving unresolved issues. Repeatedly sampling until a score reaches four risks mistaking evaluator variation for progress.
 
 EvidencePatch’s clearest current finding is that this feedback loop needs separate measurements of **local responses, overall scores, and review stability**. We have implemented the evidence-constrained workflow and observed a disconnect among these outcomes. Independent expert adjudication of evidence support and substantive resolution remains the next critical step.
+
+## Code, data, and reproduction resources
+
+The [public EvidencePatch repository](https://github.com/FengxianJi/EvidencePatch) includes the method and ten registered controls, anonymous numeric outcomes, complete aggregate tables, figure exports, and reproduction scripts.
+
+| Resource | Location |
+|---|---|
+| Method and baseline implementations | [method/](https://github.com/FengxianJi/EvidencePatch/tree/main/method) |
+| Complete result tables | [results/tables/](https://github.com/FengxianJi/EvidencePatch/tree/main/results/tables) |
+| Main figure and experiment plots (SVG / PNG / PDF) | [results/figures/](https://github.com/FengxianJi/EvidencePatch/tree/main/results/figures) |
+| Anonymous numeric records and metric definitions | [Data guide](https://github.com/FengxianJi/EvidencePatch/blob/main/docs/DATA.md) |
+| Reproduction and plotting commands | [scripts/](https://github.com/FengxianJi/EvidencePatch/tree/main/scripts) |
+
+After downloading the repository, run `python3 scripts/reproduce_results.py` to recompute headline means, correlation, and disagreement counts without API calls or a GPU. Method demonstrations use explicitly synthetic inputs. Source papers, review text, credentials, and raw model responses are excluded. The original API study and expert adjudication cannot be reproduced from these public artifacts alone; the repository README describes the supported scope.

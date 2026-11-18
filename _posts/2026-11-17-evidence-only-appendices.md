@@ -11,6 +11,8 @@ comments: true
 math: true
 ---
 
+**代码与实验资源：** [GitHub 仓库](https://github.com/FengxianJi/EvidencePatch) · [结果与图表](https://github.com/FengxianJi/EvidencePatch/tree/main/results) · [下载 ZIP](https://github.com/FengxianJi/EvidencePatch/archive/refs/heads/main.zip)
+
 把论文交给 AI，收到审稿意见，逐条修改，再请它重新审稿。这个流程很自然，却隐藏着一个问题：**下一轮分数更高，能否说明上一轮指出的问题真的解决了？如果回应更充分，分数却下降，又该相信什么？**
 
 EvidencePatch 围绕这个问题展开。我们希望将审稿意见转成可核查、有证据支持的修订动作，同时检查整条反馈链是否可靠。当前实验发现：局部质疑解决代理改善与整体 AI 审稿评分提升并不一致；相同版本再次评分，也会出现逐篇波动。
@@ -232,3 +234,17 @@ $$\mathbf 1[\cdot]$$ 是指示函数。这里比较相同版本，衡量分数�
 停止条件也需要包含证据和预算：已无可执行且有依据的补丁、必须新增实验却暂不具备条件，或者预算耗尽，都应该允许停止并保留未解决状态。反复评分直到某一次达到 4 分，会把评审波动混成表面进步。
 
 EvidencePatch 当前最清楚的发现，是这条反馈链需要逐环节评估：**局部回应、整体评分与评审稳定性各自提供不同信息。**我们已实现证据约束的修订流程，并观察到了三者的脱节；专家对证据支持和真实解决情况的裁定仍是下一步关键工作。
+
+## 代码、数据与复现入口
+
+本博客对应的 [EvidencePatch 公开仓库](https://github.com/FengxianJi/EvidencePatch) 包含方法与十个注册控制条件的代码、匿名数值结果、聚合表格、图片和复现脚本。
+
+| 资源 | 入口 |
+|---|---|
+| 方法与基线代码 | [method/](https://github.com/FengxianJi/EvidencePatch/tree/main/method) |
+| 完整实验表格 | [results/tables/](https://github.com/FengxianJi/EvidencePatch/tree/main/results/tables) |
+| 主图与实验图（SVG / PNG / PDF） | [results/figures/](https://github.com/FengxianJi/EvidencePatch/tree/main/results/figures) |
+| 匿名数值记录与统计口径 | [数据说明](https://github.com/FengxianJi/EvidencePatch/blob/main/docs/DATA.md) |
+| 结果复算和绘图 | [scripts/](https://github.com/FengxianJi/EvidencePatch/tree/main/scripts) |
+
+下载仓库后运行 `python3 scripts/reproduce_results.py`，即可用匿名数值数据复算主要均值、相关性和分歧计数，不需要 API 或 GPU。方法示例使用单独标明的合成输入。原始论文、评审文本、密钥和模型原始响应不在仓库中；原始 API 实验及专家裁定无法仅凭这些公开资源重现。完整运行范围见仓库 README。
