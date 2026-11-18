@@ -1,42 +1,150 @@
 ---
 layout: post
-title: "We Added Evidence to 300 Papers. AI Review Scores Went Down."
+title: "EvidencePatch: When Does Revising a Paper from AI Reviews Actually Help?"
 date: 2026-11-17 10:00:00 +0000
+last_modified_at: 2026-11-18
 categories: research
 permalink: /en/research/2026/11/17/evidence-only-appendices/
 lang: en
 translation_url: /research/2026/11/17/evidence-only-appendices/
 comments: true
+math: true
 ---
 
-*An EvidencePatch research update on evidence-only appendices and AI reviewer scores.*
+Send a paper to an AI reviewer, follow its suggestions, and ask for another review. The loop feels natural. But what does a higher score establish? And what should we conclude when the model judges a response more adequate while giving the paper a lower score?
 
-We started with a practical question: reviewers sometimes miss evidence that is already in a paper. If we organize the relevant passages into a short, clear appendix, will an AI reviewer notice them more easily and give the paper a higher score?
+EvidencePatch studies this feedback loop through evidence-grounded revision. Our current experiments show that improvement in a local concern-resolution proxy does not guarantee a higher overall AI recommendation score. Repeated evaluation of an unchanged version also produces paper-level variation.
 
-Our current 300-paper study says no. In the primary MiniMax-M3 evaluation, a targeted evidence appendix lowered the mean score proxy by **0.233 points on a 1–5 scale** compared with the unchanged paper (95% paper-bootstrap confidence interval: **−0.281 to −0.187**; paired signed-rank *p* = **2.34 × 10⁻¹⁷**). A separate M3 execution on the same papers also moved in the negative direction (**−0.216**). Two other reviewer models showed negative average changes as well, with different magnitudes: **−0.133** for Mistral and **−0.857** for Qwen3.
 
-This was not the result we hoped for, but it is informative: making existing evidence easier to find did not reliably raise these models’ scores.
 
-## What we did
+![EvidencePatch workflow, evaluation disconnect, and repeatability]({{ '/assets/evidencepatch-feedback/main_framework.svg' | relative_url }})
 
-We used 300 papers with human reviews from ICLR and NeurIPS records. For each paper, we kept the main text fixed and compared several material conditions: the original paper, length and content controls, and a targeted appendix that linked reviewer concerns to passages already in the paper. The primary MiniMax-M3 panel scored five conditions three times each. We also ran a separate M3 evaluation on the same cohort and evaluated it with Qwen3 and Mistral.
+*Figure 1. The method workflow, separately measured outcomes, and review stability. The two endpoints use different scales and eligible populations; their magnitudes are not directly comparable.*
 
-The intervention was deliberately narrow. It could reorganize or point to existing evidence; it could not add results from a new experiment or change the paper’s scientific claims. We checked source hashes and the provenance of quoted text. These checks confirm that the quotations came from the frozen paper. They do not establish that a quotation logically supports a claim or that it resolves a reviewer’s concern.
+## Turning a concern into an action
 
-## A score is not a resolution label
+Consider an illustrative reviewer comment: “The paper does not explain how this hyperparameter was chosen.” The explanation might already exist in the paper, require a supported clarification, or depend on a sensitivity experiment that has never been run. Each situation calls for a different action.
 
-AI scores can change for several reasons: evidence may be easier to find, a model may prefer a particular presentation, or the supplement may fail to address the reviewer’s concern. A score increase alone cannot distinguish among these possibilities.
+EvidencePatch makes this distinction explicit:
 
-We therefore treat scores as measurements of model judgments, not as evidence that scientific quality changed. The cross-model results make the same point: all three model families moved downward on average, but Qwen3’s change was much larger than Mistral’s. The result depends in part on the evaluator. A higher score from one evaluator does not by itself show that a scientific concern was resolved.
+1. **Decompose the review** into checkable concerns and identify the affected claims.
+2. **Retrieve evidence** from the paper and available experimental artifacts, preserving source locations and version hashes.
+3. **Plan under a budget:** choose evidence pointers, clarification, or experiments, while retaining unresolved concerns when support is missing. A risk-aware planner estimates relevance, uncertainty, and cost.
+4. **Generate and verify a patch:** connect responses to sources and require completed execution artifacts for experimental result claims.
 
-In a separate 100-paper development cohort, we also repeated a blind M3 scoring pass over frozen outputs from the risk-aware method. The repeat produced a mean change of **+0.11** (95% confidence interval: **−0.01 to +0.22**, *p* = **0.090**), compared with **+0.14** in the earlier pass. Paper-level score changes were only weakly correlated across the two passes (**ρ = 0.157**). This was a rescore of already generated outputs, not a new run of method generation. It is a reminder to interpret small apparent gains cautiously.
+The implementation includes BM25 retrieval and risk-aware planning. Our 300-paper primary experiment tests a narrower intervention: a targeted appendix built from existing evidence while the main text remains frozen. It does not establish the superiority of the full planner, and it does not rerun experiments for every paper.
 
-## What we can and cannot conclude
+A schematic budgeted objective expresses the planning idea:
+<div class="math-display">
+\[
+\mathcal A^*=\underset{\mathcal A\subseteq\mathcal C}{\operatorname{argmax}}\;\sum_{a\in\mathcal A}\left[\widehat g(a)-\lambda\widehat r(a)\right],\qquad\sum_{a\in\mathcal A}\widehat c(a)\leq B.
+\]
+</div>
 
-We can conclude that the evidence-only appendix tested in this cohort did not increase mean AI reviewer scores. A second M3 execution also showed a negative change, as did the two other reviewer models.
+Here $$\mathcal C$$ is the candidate action pool; $$\widehat g$$, $$\widehat r$$, and $$\widehat c$$ denote estimated gain, risk, and cost; $$B$$ is the budget and $$\lambda$$ controls the risk penalty. This summarizes the method design. Estimated gain is not verified resolution, and the primary appendix experiment does not validate this full objective.
 
-We cannot conclude that appendices are useless, that adding a genuinely needed experiment would not help, or that human reviewers would respond in the same way. Most importantly, we do not yet have returned expert labels to determine whether the supplements resolved valid concerns. The blinded expert annotation package is prepared, but annotations have not been returned. Paper-level reuse rights are also still under review, so this post reports aggregate results only.
+## Adding evidence did not improve average scores
 
-## Completed results, tables, and figures
+We evaluated 300 papers with human reviews under five conditions: original paper C0, neutral appendix C1, clarification C2, reproducibility information C3, and targeted evidence C5. MiniMax-M3 scored each condition three times; the analysis averages scores within each paper.
 
-[See the bilingual experiment-results summary]({{ '/en/research/2026/11/18/completed-experiment-results/' | relative_url }}).
+We define score changes as follows:
+<div class="math-display">
+\[
+\bar S_i^{(c)}=\frac{1}{K}\sum_{k=1}^{K}S_{ik}^{(c)},\qquad d_i^S=\bar S_i^{(C5)}-\bar S_i^{(C0)},\qquad \Delta_S=\frac{1}{N}\sum_{i=1}^{N}d_i^S.
+\]
+</div>
+
+$$S_{ik}^{(c)}$$ is the rating of paper $$i$$ under condition $$c$$ on repeat $$k$$; here $$K=3$$ and $$N=300$$. The 1–5 recommendations are ordinal; averaging them is the descriptive aggregation used in this experiment.
+
+| Contrast | Mean change on the 1–5 score scale | 95% paper-bootstrap interval |
+|---|---:|---|
+| Neutral appendix C1 − original C0 | −0.071 | [−0.113, −0.028] |
+| Clarification C2 − original C0 | −0.054 | [−0.094, −0.013] |
+| Reproducibility C3 − original C0 | −0.092 | [−0.132, −0.052] |
+| Targeted evidence C5 − original C0 | **−0.233** | **[−0.281, −0.187]** |
+
+C5 also scored 0.162 points below the length-matched neutral appendix. A separate M3 execution on the same cohort produced a C5−C0 effect of −0.216. Qwen3 and Mistral showed negative effects of −0.857 and −0.133, respectively.
+
+These appendices did not raise the evaluators’ average scores. The result does not identify the cause of the decline or establish that scientific quality deteriorated.
+
+
+
+![C5 minus C0 across four scoring panels]({{ '/assets/evidencepatch-feedback/score_effects.svg' | relative_url }})
+
+*Figure 2. Separate estimates on the same 300-paper cohort. M3 uses three ratings per condition; Qwen3 and Mistral use one. The M3 rerun does not add independent papers.*
+
+## A better local response can coexist with a lower overall score
+
+We separately ran a randomized A/B concern assessment over the 300 papers. MiniMax-M3 labeled concern validity, repairability, and resolution under both versions. This is a same-family automated proxy; independent expert labels have not been returned.
+
+Of the papers, 284 contained at least one model-labeled valid and repairable concern, giving 873 eligible concern pairs. Unresolved, partially resolved, and fully resolved labels are mapped to 0, 0.5, and 1. We average eligible labels within each paper before averaging across papers. The C5−C0 paper-macro proxy change was **+0.0559**, with a 95% interval of **[+0.0402, +0.0730]**. This weighted status proxy is neither a 1–5 recommendation score nor a directly equivalent increase in the fraction of fully resolved concerns.
+
+The concern proxy has a different definition:
+<div class="math-display">
+\[
+q_{ij}^{(c)}\in\{0,\tfrac12,1\},\quad R_i^{(c)}=\frac{1}{|E_i|}\sum_{j\in E_i}q_{ij}^{(c)},\quad \Delta_R=\frac{1}{|I_E|}\sum_{i\in I_E}\left(R_i^{(C5)}-R_i^{(C0)}\right).
+\]
+</div>
+
+$$E_i$$ contains the concerns the model labels valid and repairable using existing evidence, clarification, or reanalysis. $$I_E=\{i:|E_i|>0\}$$ contains 284 papers. Labels $$q$$ encode unresolved, partial, and full resolution. New-experiment concerns are outside this denominator; papers receive equal weight.
+
+The paper-level pairing reveals the mismatch:
+
+| Among the 55 papers whose resolution proxy improved | Papers |
+|---|---:|
+| Overall score increased | 10 |
+| Overall score stayed the same | 20 |
+| Overall score decreased | 25 |
+
+Across the 284 eligible papers, Spearman correlation between the two changes was 0.069, with a 95% interval spanning zero. **Under this evaluation setup, a positive AI judgment about a local response does not guarantee a higher overall AI recommendation.**
+
+Source hashes and randomized condition mapping passed integrity checks. However, only 87.4% of nonempty supporting quotations matched the source text exactly, and two exceeded the requested word limit. Exact matching checks provenance, not whether a quotation logically supports a response. The observed proxy improvement therefore cannot be treated as expert-confirmed resolution.
+
+
+
+![Overall score directions among 55 proxy-improved papers]({{ '/assets/evidencepatch-feedback/discordance.svg' | relative_url }})
+
+*Figure 3. Score directions conditional on a positive concern-resolution proxy change. These are paired results, not new samples or expert resolution rates.*
+
+## Why can the feedback loop come apart?
+
+The two assessments receive different context and answer different questions. The holistic scorer sees the manuscript and supplement, without the complete original reviews; the C5 appendix itself contains selected review excerpts. The concern assessor sees the original reviews and compares the two versions concern by concern. Their outputs need not move together.
+
+The proxy also covers a narrower set of problems. Among 1,745 extracted concerns, 717 were classified as requiring new experiments and 92 as core-method or claim defects. Neither category enters the eligible paired proxy. An appendix can improve a local explanation while leaving a major scientific gap intact.
+
+The action categories offer a descriptive clue. For concerns classified as addressable with existing evidence, 24 of 80 moved from unresolved to partial or full resolution. The corresponding counts were 39 of 539 for clarification and 12 of 254 for reanalysis. This is consistent with evidence localization being most useful when the evidence already exists. Both the categories and outcomes remain model judgments.
+
+We have not established whether the lower overall scores result from weak relevance, newly salient gaps, or evaluator sensitivity to presentation. A weak positive association appeared in one exploratory subgroup, but largely disappeared when the score contrast used the neutral appendix as its comparator. It does not identify a reliable condition for score improvement.
+
+## Asking again can change the score even without a revision
+
+Observed score changes also include evaluation variability. Across two M3 executions on unchanged papers and appendices, each averaging three ratings per condition, paper-level means matched exactly for only 47.7% of original packets and 43.3% of C5 packets.
+
+The average C5−C0 effect remained negative, changing from −0.233 to −0.216. Yet the cross-run Pearson correlation of individual paper effects was only 0.105. An aggregate pattern can reproduce while individual improvement judgments remain unstable.
+
+Our separate ten-paper iterative development pilot did not achieve stable improvement for every paper. Some failed cases used candidates selected for their development scores, introducing selection bias. Since successive rounds also change the candidate, their trajectories combine revision effects with evaluation variability. An isolated high score does not establish stable success.
+
+Exact agreement between the three-rating means in two executions is:
+<div class="math-display">
+\[
+A_c=\frac{1}{N}\sum_{i=1}^{N}\mathbf{1}\!\left[\bar S_{i,\mathrm{run1}}^{(c)}=\bar S_{i,\mathrm{run2}}^{(c)}\right].
+\]
+</div>
+
+The indicator $$\mathbf 1[\cdot]$$ measures agreement on unchanged packets. This is score repeatability, not semantic agreement between review texts.
+
+![Exact agreement of paper means across repeated frozen-input evaluations]({{ '/assets/evidencepatch-feedback/repeatability.svg' | relative_url }})
+
+*Figure 4. Equal paper-mean scores across two runs. The manuscript version is unchanged; this agreement rate does not measure review accuracy.*
+
+## Evaluating a revision loop
+
+Each iteration should ask whether the original concern was valid, whether the response has sufficient evidence, whether the specific gap was resolved, whether the revision introduced problems, and whether the overall judgment changed reliably.
+
+Concern IDs, version hashes, and evidence records make these questions traceable. Fixed-concern reassessment should accompany fresh review. A concern disappearing from the next review does not establish that it was resolved; different wording does not automatically identify a new concern.
+
+Stopping should reflect evidence and budget. The system should stop when no supported action remains, when required experiments cannot currently be executed, or when the budget is exhausted, while preserving unresolved issues. Repeatedly sampling until a score reaches four risks mistaking evaluator variation for progress.
+
+EvidencePatch’s clearest current finding is that this feedback loop needs separate measurements of **local responses, overall scores, and review stability**. We have implemented the evidence-constrained workflow and observed a disconnect among these outcomes. Independent expert adjudication of evidence support and substantive resolution remains the next critical step.
+
+[See the completed experiment tables and figures]({{ '/en/research/2026/11/18/completed-experiment-results/' | relative_url }}).

@@ -21,3 +21,6 @@ h2 { margin-top:2.2em; font-size:1.5rem; letter-spacing:-.02em; } h3 { margin-to
 .post-content th,.post-content td { border:1px solid var(--line); padding:9px 11px; text-align:left; vertical-align:top; }
 .post-content th { background:#eef4ef; white-space:nowrap; }
 .post-content pre { overflow-x:auto; background:#f0f1ed; border:1px solid var(--line); border-radius:6px; padding:14px; font-size:13px; }
+
+.math-display { overflow-x:auto; overflow-y:hidden; margin:1.5em 0; padding:12px 8px; background:#f1f5f7; border-radius:8px; }
+.post-content mjx-container { max-width:100%; }

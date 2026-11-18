@@ -1,0 +1,53 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1440" height="980" viewBox="0 0 1440 980" role="img" aria-labelledby="title desc">
+<title id="title">EvidencePatch: evidence-grounded revision and the evaluation disconnect</title>
+<desc id="desc">A proposed concern-to-evidence planning workflow above separate measured concern-resolution and overall-score outcomes. The primary experiment tests frozen-body appendices, not the full planner or multiround efficacy.</desc>
+<defs><marker id="arrow" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto"><path d="M0,0 L0,6 L9,3 z" fill="#587285"/></marker></defs>
+<rect width="1440" height="980" fill="#ffffff"/>
+<style>text{font-family:Arial,Helvetica,sans-serif;fill:#163047}.title{font-size:33px;font-weight:700}.h{font-size:24px;font-weight:700}.body{font-size:20px}.small{font-size:18px;fill:#506577}.num{font-size:38px;font-weight:700}.arrow{fill:none;stroke:#587285;stroke-width:3;marker-end:url(#arrow)}</style>
+<text x="45" y="55" class="title">EvidencePatch: a revision is more than a higher score</text>
+<text x="45" y="91" class="body">Method workflow + observed evaluation outcomes; AI judgments remain proxies</text>
+<rect x="35" y="120" width="1370" height="290" rx="16" fill="#f7fafc" stroke="#cfdae5" stroke-width="2"/>
+<text x="60" y="158" class="h">A  |  Evidence-grounded, budget-aware revision workflow</text>
+<rect x="65" y="188" width="300" height="135" rx="16" fill="#f0f5fa" stroke="#cfdae5" stroke-width="2"/>
+<text x="81" y="224" class="h">Paper + reviews</text>
+<text x="81" y="260" class="body">Frozen input versions</text>
+<text x="81" y="289" class="body">and traceable sources</text>
+<path d="M367,253 L394,253" class="arrow"/>
+<rect x="400" y="188" width="300" height="135" rx="16" fill="#f0f5fa" stroke="#cfdae5" stroke-width="2"/>
+<text x="416" y="224" class="h">Diagnose + retrieve</text>
+<text x="416" y="260" class="body">Checkable concerns</text>
+<text x="416" y="289" class="body">and source evidence</text>
+<path d="M702,253 L729,253" class="arrow"/>
+<rect x="735" y="188" width="300" height="135" rx="16" fill="#f0f5fa" stroke="#cfdae5" stroke-width="2"/>
+<text x="751" y="224" class="h">Plan actions</text>
+<text x="751" y="260" class="body">Pointers / clarification</text>
+<text x="751" y="289" class="body">experiment / stop</text>
+<path d="M1037,253 L1064,253" class="arrow"/>
+<rect x="1070" y="188" width="300" height="135" rx="16" fill="#f0f5fa" stroke="#cfdae5" stroke-width="2"/>
+<text x="1086" y="224" class="h">Verify patch</text>
+<text x="1086" y="260" class="body">Check provenance</text>
+<text x="1086" y="289" class="body">retain unresolved gaps</text>
+<text x="65" y="360" class="body">Primary-300 intervention: frozen main text + existing-evidence appendix (C5).</text>
+<text x="65" y="390" class="small">This panel does not validate the full planner or demonstrate monotonic multiround improvement.</text>
+<path d="M720,412 L720,449" class="arrow"/>
+<text x="45" y="478" class="h">B  |  Local concern judgments and overall recommendations diverge</text>
+<rect x="45" y="505" width="650" height="205" rx="16" fill="#eef6f3" stroke="#bbd7ca" stroke-width="2"/>
+<rect x="745" y="505" width="650" height="205" rx="16" fill="#f1f4fa" stroke="#c6d0e5" stroke-width="2"/>
+<text x="65" y="544" class="h">Concern-resolution proxy</text>
+<text x="765" y="544" class="h">Overall recommendation score</text>
+<text x="65" y="598" class="num">+0.0559</text>
+<text x="765" y="598" class="num">-0.233 / 5</text>
+<text x="65" y="638" class="body">284 eligible papers / 873 concern pairs</text>
+<text x="65" y="672" class="body">95% CI [+0.0402, +0.0730]</text>
+<text x="765" y="638" class="body">300 papers / 3 M3 ratings per condition</text>
+<text x="765" y="672" class="body">95% CI [-0.281, -0.187]</text>
+<text x="65" y="697" class="small">Same-family M3 labels; weighted 0 / 0.5 / 1 status</text>
+<text x="765" y="697" class="small">Frozen-body C5 minus C0 contrast</text>
+<text x="45" y="754" class="h">55 proxy-improved papers: 10 score up / 20 unchanged / 25 down</text>
+<text x="45" y="790" class="body">Paired-paper association: Spearman rho = 0.069; 95% CI [-0.056, +0.190]</text>
+<rect x="45" y="820" width="1350" height="115" rx="16" fill="#f8f6ef" stroke="#e1d9bc" stroke-width="2"/>
+<text x="65" y="854" class="h">C  |  Iteration also needs a stability check</text>
+<text x="65" y="887" class="body">On unchanged packets, exact agreement of three-rating means across two M3 runs:</text>
+<text x="65" y="919" class="body">C0: 47.7%   |   C5: 43.3%   |   Fixed-concern reassessment + fresh review + repeated scoring</text>
+<text x="45" y="965" class="small">Different endpoints and eligible populations. Proxy audit has quote constraints; expert resolution is not yet established.</text>
+</svg>

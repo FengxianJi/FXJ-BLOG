@@ -1,0 +1,86 @@
+{
+  "scope": "Aggregate-only; same-family model proxies, not expert adjudication",
+  "score_contrasts": [
+    [
+      "M3 primary",
+      -0.2333333333333333,
+      -0.2811111111111111,
+      -0.18666666666666668
+    ],
+    [
+      "M3 execution rerun",
+      -0.21555555555555556,
+      -0.2611111111111111,
+      -0.17
+    ],
+    [
+      "Qwen3",
+      -0.8566666666666667,
+      -0.9566666666666667,
+      -0.7566666666666667
+    ],
+    [
+      "Mistral",
+      -0.13333333333333333,
+      -0.21,
+      -0.06
+    ]
+  ],
+  "paired_analysis": {
+    "pearson_r": 0.0705809650925982,
+    "spearman_rho": 0.06874366824798012,
+    "spearman_paper_bootstrap_ci95": [
+      -0.05635968913176231,
+      0.18969635818439973
+    ],
+    "bootstrap_replicates": 10000,
+    "bootstrap_seed": 20261118,
+    "direction_counts_score_sign_then_resolution_sign": {
+      "-1,+0": 122,
+      "-1,+1": 25,
+      "+0,+0": 81,
+      "+0,+1": 20,
+      "+1,+0": 26,
+      "+1,+1": 10
+    },
+    "resolution_groups": {
+      "resolution_proxy_increased": {
+        "papers": 55,
+        "mean_score_delta": -0.17575757575757575,
+        "score_delta_sign_counts": {
+          "-1": 25,
+          "1": 10,
+          "0": 20
+        }
+      },
+      "resolution_proxy_unchanged": {
+        "papers": 229,
+        "mean_score_delta": -0.2343522561863173,
+        "score_delta_sign_counts": {
+          "-1": 122,
+          "0": 81,
+          "1": 26
+        }
+      },
+      "resolution_proxy_decreased": {
+        "papers": 0,
+        "mean_score_delta": null,
+        "score_delta_sign_counts": {}
+      }
+    }
+  },
+  "resolution_proxy": {
+    "papers_verified": 300,
+    "repairable_valid_concerns_in_paired_analysis": 873,
+    "paper_macro_c5_minus_c0_mean": 0.05586854460093897,
+    "requested_quote_word_limit_violations": 2
+  },
+  "source_hashes": {
+    "show/experiment/[1]first experiment/results/primary300_score_resolution_alignment_v2/summary.json": "e3f818eacd613d5fffdb0d4325157dc2acaf4f7bab7cd37199a01c4f80f4ecd4",
+    "show/experiment/[1]first experiment/results/primary300_resolution_proxy_m3_v3/corrected_metrics.json": "6e4ee05a225cc4393cc403d9680913616dccd45080189dd5ae124f505cb37aa3",
+    "show/experiment/[1]first experiment/results/confirmatory_primary_300/experiment/rerun_v1/comparison.md": "2cd8cf737621d95f9a1f170ce3d24f10083165a97e0de7da26a00fd3b0b93dad",
+    "show/experiment/[1]first experiment/results/model_family_comparison_primary300_v1/report.md": "4ddf88f6496ea55e1753fb97a9b9436cd7855cc1e058923109fb28c565a491c6",
+    "show/experiment/[1]first experiment/results/model_family_comparison_primary300_v1/summary.json": "6a7c648348abf6f15779871b335e2777806920d7fa31782275496b5c5709c03a",
+    "show/experiment/[1]first experiment/results/confirmatory_primary_300/experiment/rerun_v1/metrics.json": "fc34e8ca4f4b4ed0e1cb42415df46b0f91b35f257304a9bb1270883029692b88"
+  }
+}
