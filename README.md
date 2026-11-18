@@ -2,13 +2,13 @@
 
 EvidencePatch 最终博客的发布仓库：Jekyll + GitHub Pages，支持中英文切换及 giscus 评论。
 
-## 双语文章
+## 唯一内容入口
 
-每篇文章在 `_posts/` 中维护一对文件：`.md` 为中文，`.en.md` 为英文；两者的 `translation_url` 应指向对方的 `permalink`。`scripts/manage_blog.py check` 会检查所有双语配对、翻译链接、图片引用和 SVG 语法。旧实验汇总文章及其跳转页已删除。
+直接编辑 `_posts/2026-11-17-evidence-only-appendices.md`（中文）和同名 `.en.md`（英文）。两篇是同一篇最终文章的两个语言版本。旧实验汇总文章及其跳转页已删除。
 
 | 目录/文件 | 用途 |
 |---|---|
-| `_posts/` | 双语发布正文，含公式和图引用 |
+| `_posts/` | 最终发布正文，含公式和图引用 |
 | `assets/evidencepatch-feedback/` | 主图、评分/分歧/重复性图、聚合数据与来源哈希 |
 | `assets/results-2026-11-18/` | 正文中仍引用的基线与复评分图，并非旧文章副本 |
 | `scripts/build_feedback_figures.py` | Python 标准库 + gnuplot 绘图 |
