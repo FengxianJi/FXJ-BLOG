@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "EvidencePatch: Completed Experiment Results, Tables, and Figures"
-date: 2026-11-18 04:00:00 +0000
+date: 2026-11-18 03:00:00 +0000
 categories: research
 permalink: /en/research/2026/11/18/completed-experiment-results/
 lang: en
