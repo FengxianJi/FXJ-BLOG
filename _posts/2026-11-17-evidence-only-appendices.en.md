@@ -5,6 +5,7 @@ date: 2026-11-17 10:00:00 +0000
 categories: research
 permalink: /en/research/2026/11/17/evidence-only-appendices/
 lang: en
+author: "Fengxian Ji, Fan Zhang, Zhuohan Xie"
 translation_url: /research/2026/11/17/evidence-only-appendices/
 comments: true
 ---
@@ -36,3 +37,7 @@ In a separate 100-paper development cohort, we also repeated a blind M3 scoring 
 We can conclude that the evidence-only appendix tested in this cohort did not increase mean AI reviewer scores. A second M3 execution also showed a negative change, as did the two other reviewer models.
 
 We cannot conclude that appendices are useless, that adding a genuinely needed experiment would not help, or that human reviewers would respond in the same way. Most importantly, we do not yet have returned expert labels to determine whether the supplements resolved valid concerns. The blinded expert annotation package is prepared, but annotations have not been returned. Paper-level reuse rights are also still under review, so this post reports aggregate results only.
+
+## Completed results, tables, and figures
+
+Authors: Fengxian Ji, Fan Zhang, Zhuohan Xie. [See the bilingual experiment-results summary]({{ '/en/research/2026/11/18/completed-experiment-results/' | relative_url }}).

@@ -1,0 +1,121 @@
+---
+layout: post
+title: "EvidencePatch 已完成实验结果：表格与图"
+date: 2026-11-18 04:00:00 +0000
+categories: research
+permalink: /research/2026/11/18/completed-experiment-results/
+lang: zh-CN
+translation_url: /en/research/2026/11/18/completed-experiment-results/
+author: "Fengxian Ji, Fan Zhang, Zhuohan Xie"
+comments: true
+---
+
+**作者：Fengxian Ji, Fan Zhang, Zhuohan Xie**
+
+本文汇总已经完成并有对应指标文件的评分实验。表格和图只展示聚合数据；评分变化是 AI 审稿评分代理，不等于专家确认的质疑解决，也不代表论文科学质量发生变化。95% 置信区间按论文 bootstrap 计算。
+
+## 300 篇确认性主实验
+
+MiniMax-M3 对 300 篇论文的五种条件各评分三次。主要对比是 C5 定向证据附录与 C0 原文。
+
+| 对比 | 论文数 | 均值变化（1–5 分） | 95% CI | raw p | Holm 次要对比 p |
+|---|---|---|---|---|---|
+| C1 安慰剂 − C0 原文 | 300 | -0.071 | [-0.113, -0.028] | 0.00216 | 0.00431 |
+| C2 澄清 − C0 原文 | 300 | -0.054 | [-0.094, -0.013] | 0.0236 | 0.0236 |
+| C3 可复现性补充 − C0 原文 | 300 | -0.092 | [-0.132, -0.052] | 5.87e-06 | 1.76e-05 |
+| C5 定向证据 − C0 原文（主要对比） | 300 | -0.233 | [-0.281, -0.187] | 2.34e-17 | — |
+
+![300 篇主实验条件与跨评审器效果图]({{ '/assets/results-2026-11-18/figure_01_primary300.png' | relative_url }})
+
+[下载 PDF 图版]({{ '/assets/results-2026-11-18/figure_01_primary300.pdf' | relative_url }})
+
+## 同队列跨评审器复核
+
+M3 主实验和复跑、Mistral、Qwen3 结果分别列出，不将不同评审器合并为一个效应。
+
+| 评审器/运行 | 论文数 | C5 − C0 | 95% CI | raw p |
+|---|---|---|---|---|
+| MiniMax-M3 主实验 | 300 | -0.233 | [-0.281, -0.187] | 2.34e-17 |
+| MiniMax-M3 同队列执行复跑 | 300 | -0.216 | [-0.261, -0.170] | 8.48e-18 |
+| Mistral-7B-Instruct（CPU） | 300 | -0.133 | [-0.210, -0.060] | 4.26e-04 |
+| Qwen3-8B（CPU） | 300 | -0.857 | [-0.957, -0.757] | 3.29e-45 |
+
+## 100 篇十方法探索性基准
+
+单一 MiniMax-M3 评审器，每种方法一次评分。Holm p 为该组方法比较的多重检验校正结果。Cost-greedy 的分数代理变化为 −0.14（Holm p=0.023）；这是评分变化，不能解读为科学质量下降。
+
+| 方法 | 论文数 | 相对原文均值变化 | 95% CI | Holm p |
+|---|---|---|---|---|
+| 冻结原文 | 100 | +0.00 | [+0.00, +0.00] | — |
+| 单轮通用 LLM | 100 | -0.07 | [-0.19, +0.05] | 1 |
+| 迭代通用 LLM | 100 | -0.07 | [-0.19, +0.05] | 1 |
+| DRPG 风格 | 100 | +0.00 | [-0.13, +0.13] | 1 |
+| 仅检索 | 100 | -0.05 | [-0.13, +0.03] | 1 |
+| Peerify-verify | 100 | +0.00 | [+0.00, +0.00] | 1 |
+| 随机预算 | 100 | -0.11 | [-0.20, -0.02] | 0.213 |
+| 成本贪心 | 100 | -0.14 | [-0.23, -0.06] | 0.0232 |
+| 全部可行补丁 | 100 | -0.10 | [-0.20, +0.00] | 0.527 |
+| Oracle 选择器 | 100 | -0.06 | [-0.14, +0.01] | 1 |
+
+![100 篇十方法评分代理比较]({{ '/assets/results-2026-11-18/figure_02_baseline_methods100.png' | relative_url }})
+
+[下载 PDF 图版]({{ '/assets/results-2026-11-18/figure_02_baseline_methods100.pdf' | relative_url }})
+
+## BM25 风险感知方法与复评分
+
+初跑评估方法生成和评分；后两轮只对冻结输出做盲复评分，并未重新生成补丁。
+
+| 运行 | 论文数 | 均值变化 | 95% CI | raw p | 运行类型 |
+|---|---|---|---|---|---|
+| BM25 风险感知方法初跑 | 100 | +0.14 | [+0.03, +0.26] | 0.0333 | 方法生成后评分 |
+| 冻结输出盲复评 02 | 100 | +0.12 | [+0.02, +0.22] | 0.0428 | 冻结输出重评分 |
+| 冻结输出盲复评 03 | 100 | +0.11 | [-0.01, +0.22] | 0.0895 | 冻结输出重评分 |
+
+第三轮复评的置信区间包含 0；两轮逐篇分数变化相关较弱（ρ=0.157）。
+
+![BM25 风险感知方法初跑与冻结输出复评分]({{ '/assets/results-2026-11-18/figure_03_bm25_repeatability.png' | relative_url }})
+
+[下载 PDF 图版]({{ '/assets/results-2026-11-18/figure_03_bm25_repeatability.pdf' | relative_url }})
+
+## 12 种冻结方法输出的统一复评
+
+这是同一 100 篇开发队列上的统一盲复评，不是新的方法生成实验。完整评分单元为 1,200/1,200。section-context 未校正 p=0.053，Holm 校正 p=0.586。
+
+| 方法 | 论文数 | 相对复评原文均值变化 | 95% CI | Holm p |
+|---|---|---|---|---|
+| 冻结原文 | 100 | +0.00 | [+0.00, +0.00] | — |
+| 单轮通用 LLM | 100 | -0.07 | [-0.18, +0.04] | 1 |
+| 迭代通用 LLM | 100 | -0.11 | [-0.22, +0.00] | 0.801 |
+| DRPG 风格 | 100 | -0.03 | [-0.15, +0.09] | 1 |
+| 仅检索 | 100 | -0.06 | [-0.18, +0.06] | 1 |
+| Peerify-verify | 100 | +0.03 | [-0.08, +0.14] | 1 |
+| 随机预算 | 100 | -0.03 | [-0.15, +0.09] | 1 |
+| 成本贪心 | 100 | -0.04 | [-0.17, +0.09] | 1 |
+| 全部可行补丁 | 100 | +0.05 | [-0.06, +0.16] | 1 |
+| Oracle 选择器 | 100 | -0.04 | [-0.17, +0.09] | 1 |
+| EvidencePatch 风险感知 | 100 | +0.03 | [-0.09, +0.15] | 1 |
+| EvidencePatch 段落上下文 | 100 | +0.13 | [+0.01, +0.25] | 0.586 |
+
+![12 种冻结方法输出的统一复评]({{ '/assets/results-2026-11-18/figure_04_unified_repeat03.png' | relative_url }})
+
+[下载 PDF 图版]({{ '/assets/results-2026-11-18/figure_04_unified_repeat03.pdf' | relative_url }})
+
+本页只纳入完整评分面板的汇总数据。专家标注结论不在这些评分指标中；对照和复评结果也按各自实验设计分别报告。
+
+## 引用本文
+
+### APA 7
+Ji, F., Zhang, F., & Xie, Z. (2026, November 18). *EvidencePatch 已完成实验结果：表格与图*. FXJ Research Notes. https://fengxianji.github.io/FXJ-BLOG/research/2026/11/18/completed-experiment-results/
+
+### 中文网络文献格式
+Ji F, Zhang F, Xie Z. EvidencePatch 已完成实验结果：表格与图[EB/OL]. (2026-11-18) [2026-11-18]. https://fengxianji.github.io/FXJ-BLOG/research/2026/11/18/completed-experiment-results/
+
+### BibTeX
+<pre>@misc{ji_zhang_xie_2026_completed_results,
+  author = {Ji, Fengxian and Zhang, Fan and Xie, Zhuohan},
+  title = {EvidencePatch 已完成实验结果：表格与图},
+  howpublished = {FXJ Research Notes},
+  year = {2026},
+  month = {nov},
+  url = {https://fengxianji.github.io/FXJ-BLOG/research/2026/11/18/completed-experiment-results/}
+}</pre>

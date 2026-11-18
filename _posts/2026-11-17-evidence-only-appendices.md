@@ -4,6 +4,7 @@ title: "我们给 300 篇论文补充了证据，AI 审稿评分却下降了"
 date: 2026-11-17 10:00:00 +0000
 categories: research
 lang: zh-CN
+author: "Fengxian Ji, Fan Zhang, Zhuohan Xie"
 translation_url: /en/research/2026/11/17/evidence-only-appendices/
 comments: true
 ---
@@ -35,3 +36,7 @@ AI 评分可能因很多原因变化：证据更容易找到、模型偏好某�
 我们可以得出：在这个队列中，所测试的“仅使用既有证据”的附录没有提高 AI 审稿评分的均值。第二次 M3 执行也得到负向变化，另外两个审稿模型的方向相同。
 
 我们不能据此断言附录没有用、补上真正缺失的实验也不会有帮助，或人类审稿人会作出相同反应。最重要的是，目前还没有返回的专家标签来判断补充材料是否解决了有效质疑。盲审专家标注材料已经准备好，但尚未收到标注结果。逐篇论文的再利用许可也仍在核查，因此本文只报告汇总结果。
+
+## 已完成实验的表格与图
+
+作者：Fengxian Ji, Fan Zhang, Zhuohan Xie。 [查看双语实验结果汇总]({{ '/research/2026/11/18/completed-experiment-results/' | relative_url }})。
