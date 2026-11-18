@@ -1,0 +1,79 @@
+{
+  "paper_id": "authored-toyscope-demo",
+  "manuscript": "# ToyScope: an authored example, not a research result\n## Training protocol\nOur runs use random seed 7. The learning rate is 0.01. Training images are stored in RGB format.\n## Evaluation scope\nThis example describes a protocol only. We report no label-noise experiments. No robustness measurement is available.\n",
+  "reviews": "R1: Please point to the random seed and learning-rate settings. R2: Please add a label-noise robustness experiment; do not substitute protocol text for measured results.",
+  "claims": [
+    "Please point to the random seed.",
+    "Please add a label-noise robustness experiment.",
+    "Please point to the learning-rate settings."
+  ],
+  "candidates": [
+    {
+      "candidate_id": "seed",
+      "claim": "Please point to the random seed.",
+      "quote": "Our runs use random seed 7.",
+      "cost": 1.0,
+      "expected_benefit": 0.9,
+      "uncertainty": 0.0,
+      "risk": 0.0,
+      "review_number": 1,
+      "review_context": "R1: Please point to the random seed and learning-rate settings. R2: Please add a label-noise robustness experiment; do not substitute protocol text for measured results.",
+      "section": "Training protocol",
+      "retrieved_context": [
+        "# ToyScope: an authored example, not a research result\n## Training protocol\nOur runs use random seed 7. The learning rate is 0.01. Training images are stored in RGB format.\n## Evaluation scope\nThis example describes a protocol only. We report no label-noise experiments. No robustness measurement is available.\n"
+      ],
+      "bm25_score": null
+    },
+    {
+      "candidate_id": "rgb_distractor",
+      "claim": "Please add a label-noise robustness experiment.",
+      "quote": "Training images are stored in RGB format.",
+      "cost": 0.4,
+      "expected_benefit": 0.8,
+      "uncertainty": 0.0,
+      "risk": 0.0,
+      "review_number": 2,
+      "review_context": "R1: Please point to the random seed and learning-rate settings. R2: Please add a label-noise robustness experiment; do not substitute protocol text for measured results.",
+      "section": "Training protocol",
+      "retrieved_context": [
+        "# ToyScope: an authored example, not a research result\n## Training protocol\nOur runs use random seed 7. The learning rate is 0.01. Training images are stored in RGB format.\n## Evaluation scope\nThis example describes a protocol only. We report no label-noise experiments. No robustness measurement is available.\n"
+      ],
+      "bm25_score": null
+    },
+    {
+      "candidate_id": "lr",
+      "claim": "Please point to the learning-rate settings.",
+      "quote": "The learning rate is 0.01.",
+      "cost": 1.0,
+      "expected_benefit": 0.7,
+      "uncertainty": 0.0,
+      "risk": 0.0,
+      "review_number": 1,
+      "review_context": "R1: Please point to the random seed and learning-rate settings. R2: Please add a label-noise robustness experiment; do not substitute protocol text for measured results.",
+      "section": "Training protocol",
+      "retrieved_context": [
+        "# ToyScope: an authored example, not a research result\n## Training protocol\nOur runs use random seed 7. The learning rate is 0.01. Training images are stored in RGB format.\n## Evaluation scope\nThis example describes a protocol only. We report no label-noise experiments. No robustness measurement is available.\n"
+      ],
+      "bm25_score": null
+    }
+  ],
+  "evidence_candidates": [
+    {
+      "claim": "Please point to the random seed.",
+      "quote": "Our runs use random seed 7."
+    },
+    {
+      "claim": "Please add a label-noise robustness experiment.",
+      "quote": "Training images are stored in RGB format."
+    },
+    {
+      "claim": "Please point to the learning-rate settings.",
+      "quote": "The learning rate is 0.01."
+    }
+  ],
+  "budget": 1.0,
+  "seed": 7,
+  "top_k": 3,
+  "appendix_char_budget": 2600,
+  "verification_feedback": "Do not claim any label-noise measurement exists. Keep the distinction between a protocol and an executed experiment. Point exactly to seed and learning rate."
+}

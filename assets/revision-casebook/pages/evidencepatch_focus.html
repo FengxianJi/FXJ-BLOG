@@ -1,0 +1,39 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><title>EvidencePatch close-up: evidence, distractors, missing experiments, budget</title><style>body{margin:0;background:#edf2f6;color:#182d43;font:21px/1.55 Arial,sans-serif}main{width:1380px;margin:auto;padding:38px 36px 45px}h1{font-size:34px;line-height:1.2;margin:8px 0 15px}h2{font-size:27px;margin:0 0 12px}h3{font-size:21px;margin:0 0 9px}.tag{color:#1d6f72;font-size:17px;font-weight:bold;letter-spacing:1px}.scope{background:#fff7dc;border:1px solid #e3cf8e;padding:16px 20px;border-radius:12px;margin:20px 0}article{background:white;border:1px solid #cbd9e5;border-radius:16px;padding:24px;margin:22px 0}.columns{display:grid;grid-template-columns:1fr 1fr;gap:24px}.panel{padding:18px;background:#f5f7f9;border:1px solid #d7e0e7;border-radius:10px}.after{background:#eef7f3}.meta{font-size:18px;color:#4a6277;margin-top:14px}pre{white-space:pre-wrap;overflow-wrap:anywhere;font:19px/1.5 'DejaVu Sans Mono',monospace;margin:0}a{color:#165a8c}.decision{background:#e8f1fa;padding:16px;margin:14px 0;border-radius:9px}table{border-collapse:collapse;width:100%;font-size:18px}td,th{border:1px solid #cbd9e5;padding:8px;text-align:left}footer{font-size:17px;color:#526b80;margin-top:25px}ul{padding-left:25px}</style></head><body><main><div class="tag">EVIDENCEPATCH / EXECUTED MECHANISM CASEBOOK</div><h1>EvidencePatch close-up: evidence, distractors, missing experiments, budget</h1><div class="scope">Authored synthetic paper and review. These are saved outputs from actual adapters, not the 100/300-paper study and not new efficacy evidence. No review scores are assigned.</div><article><h2>EvidencePatch: BM25 + risk-aware</h2><div class="columns"><div class="panel"><h3>BEFORE / shared frozen manuscript</h3><pre># ToyScope: an authored example, not a research result
+## Training protocol
+Our runs use random seed 7. The learning rate is 0.01. Training images are stored in RGB format.
+## Evaluation scope
+This example describes a protocol only. We report no label-noise experiments. No robustness measurement is available.
+</pre><h3>AI-review-style feedback (authored)</h3><pre>R1: Please point to the random seed and learning-rate settings. R2: Please add a label-noise robustness experiment; do not substitute protocol text for measured results.</pre></div><div class="panel after"><h3>AFTER / appended response or diagnostic</h3><pre>## Budgeted evidence pointers
+
+These entries pair exact text from the review with passages already present in the frozen manuscript. A locator is not evidence that the concern is resolved.
+
+### Review 1: existing evidence
+Review excerpt: Please point to the random seed.
+Inspect the quoted passage in Training protocol to assess the concern.
+&gt; Our runs use random seed 7.</pre></div></div><p class="meta">LLM calls: 1 | Appendix characters: 371 | Selected actions: seed</p><div class="decision">What this shows: Receives exact-span candidates and full review context; no returned pointer constitutes a new experiment.</div></article><article><h2>Inspect the estimates before the action</h2><table><tr><th>Candidate</th><th>Source text</th><th>Decision</th><th>Estimated relevance / risk</th></tr><tr><td>seed</td><td>Our runs use random seed 7.</td><td>select</td><td>0.99 / 0.01</td></tr><tr><td>rgb_distractor</td><td>Training images are stored in RGB format.</td><td>abstain</td><td>0.01 / 0.99</td></tr><tr><td>lr</td><td>The learning rate is 0.01.</td><td>select</td><td>0.99 / 0.01</td></tr></table><p>All three passages are exact source strings. Exactness alone cannot distinguish the seed-setting answer from the RGB distractor.</p></article><article><h2>missing_experiment_no_candidate</h2><pre>{
+  &quot;case&quot;: &quot;missing_experiment_no_candidate&quot;,
+  &quot;candidate_count_before_provenance_filter&quot;: 0,
+  &quot;candidate_count_after_provenance_filter&quot;: 0,
+  &quot;actions&quot;: [],
+  &quot;appendix_markdown&quot;: &quot;&quot;,
+  &quot;interpretation&quot;: &quot;No exact BM25 review/source pair; abstain.&quot;
+}</pre></article><article><h2>bad_quote_rejected</h2><pre>{
+  &quot;case&quot;: &quot;bad_quote_rejected&quot;,
+  &quot;candidate_count_before_provenance_filter&quot;: 1,
+  &quot;candidate_count_after_provenance_filter&quot;: 0,
+  &quot;actions&quot;: [],
+  &quot;appendix_markdown&quot;: &quot;&quot;,
+  &quot;interpretation&quot;: &quot;No exact BM25 review/source pair; abstain.&quot;
+}</pre></article><article><h2>evidence_present_limited_budget</h2><pre>{
+  &quot;case&quot;: &quot;evidence_present_limited_budget&quot;,
+  &quot;actions&quot;: [
+    &quot;seed&quot;
+  ],
+  &quot;appendix_markdown&quot;: &quot;## Budgeted evidence pointers\n\nThese entries pair exact text from the review with passages already present in the frozen manuscript. A locator is not evidence that the concern is resolved.\n\n### Review 1: existing evidence\nReview excerpt: Please point to the random seed.\nInspect the quoted passage in Training protocol to assess the concern.\n&gt; Our runs use random seed 7.&quot;,
+  &quot;interpretation&quot;: &quot;Evidence pointers only; inspect full ratings in outputs.json.&quot;
+}</pre></article><article><h2>zero_budget_plan</h2><pre>{
+  &quot;case&quot;: &quot;zero_budget_plan&quot;,
+  &quot;actions&quot;: [],
+  &quot;appendix_markdown&quot;: &quot;&quot;,
+  &quot;interpretation&quot;: &quot;Budget feasibility check with an illustrative utility; no model rescore.&quot;
+}</pre></article><footer>Full inputs and outputs: ../input.json and ../outputs.json. Every displayed response is traceable to a saved method output. Scientific missing evidence remains missing.</footer></main></body></html>

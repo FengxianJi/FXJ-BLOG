@@ -27,8 +27,10 @@ def check() -> None:
             raise RuntimeError(f'{post.name}: obsolete results link')
         if text.count('<div class="math-display">') != 4:
             raise RuntimeError(f'{post.name}: expected four display formulas')
-        if len(re.findall(r'!\[', text)) != 7:
-            raise RuntimeError(f'{post.name}: expected seven article figures')
+        expected = re.search(r'^figure_count: (\d+)$', front, re.MULTILINE)
+        expected_count = int(expected.group(1)) if expected else 7
+        if len(re.findall(r'!\[', text)) != expected_count:
+            raise RuntimeError(f'{post.name}: expected {expected_count} article figures')
         for asset in re.findall(r"'/assets/([^']+)'", text):
             if not (ROOT / 'assets' / asset).is_file():
                 raise RuntimeError(f'{post.name}: missing asset {asset}')

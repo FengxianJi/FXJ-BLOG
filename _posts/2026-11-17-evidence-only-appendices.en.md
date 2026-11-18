@@ -10,6 +10,7 @@ author: "Fengxian Ji, Fan Zhang, Jingpu Yang, Zhuohan Xie"
 translation_url: /research/2026/11/17/evidence-only-appendices/
 comments: true
 math: true
+figure_count: 13
 ---
 
 **Code and experimental resources:** [GitHub repository](https://github.com/FengxianJi/EvidencePatch) · [Results and figures](https://github.com/FengxianJi/EvidencePatch/tree/main/results) · [Download ZIP](https://github.com/FengxianJi/EvidencePatch/archive/refs/heads/main.zip)
@@ -23,6 +24,89 @@ EvidencePatch studies this feedback loop through evidence-grounded revision. Our
 ![EvidencePatch workflow, evaluation disconnect, and repeatability]({{ '/assets/evidencepatch-feedback/main_framework.svg' | relative_url }})
 
 *Figure 1. The method workflow, separately measured outcomes, and review stability. The two endpoints use different scales and eligible populations; their magnitudes are not directly comparable.*
+
+## First distinguish the edit, the strategy, and the success criterion
+
+“Revise from an AI review” has at least three dimensions: **where the change appears, how it is chosen, and how success is measured**. Rewriting a paragraph, adding a cross-reference, drafting a response, and reporting a new experiment are different editing surfaces. One-shot generation, feedback iteration, retrieval, verification, and budget planning are different strategies. Calling all of them “adding an appendix” hides these distinctions.
+
+Suppose a review asks for both the random seed and a label-noise experiment. The seed may already be documented; an exact pointer can address an accessibility problem. If the experiment has never run, a clearer paragraph does not supply a measurement. The two requests need separate decisions.
+
+| Editing surface | What can change | Boundary and coverage here |
+|---|---|---|
+| Main-text rewriting or expansion | Wording, order, structure | Clearer wording is not necessarily stronger evidence; no large-scale full-body rewriting evaluation is completed here |
+| Main-text anchors and cross-references | Access to existing material | A correct location can still contain insufficient evidence; derived citation anchors appear in the ten-paper RSI development work |
+| Review response or clarification | Explicit mapping from concern to response | A correct acknowledgment of a limitation need not raise the recommendation |
+| Existing-evidence appendix | Organization of source passages, protocols, results | An exact passage can be irrelevant; this is the restricted intervention tested by primary-300 C0–C5 |
+| New experiment and result report | Previously missing measurements | Requires actual execution, validation, and budget; a proposed protocol is not an experimental result |
+
+The ten registered controls primarily return appendices, evidence indexes, or diagnostics through a shared frozen-main-text interface. **They compare revision strategies, not all possible editing surfaces.** EvidencePatch's action design includes pointers, clarification, experiments, or stopping; the large-cohort appendix result tests only part of that design.
+
+[![Illustrative prose rewrite and internal cross-reference before and after]({{ '/assets/revision-casebook/edit_surfaces.png' | relative_url }})]({{ '/assets/revision-casebook/edit_surfaces.png' | relative_url }})
+
+*Editing-surface illustration: manually authored examples, not evaluated method outputs. The internal protocol cross-reference adds no experiment. The remaining screenshots show actual executed adapter outputs.*
+
+## What competing strategies do, and where they can fall short
+
+The limitations below distinguish implementation boundaries from possible failure modes. They are not all experimentally established causes of failure. Generic generators are also instructed not to fabricate; EvidencePatch's distinguishing implementation is explicit candidate-value, risk, and budget estimation.
+
+| Method | Actual action | Boundary to inspect |
+|---|---|---|
+| Frozen original | No revision | Reference condition, not a revision algorithm |
+| One-shot generic | Draft a response once | Readability does not establish evidence sufficiency; one draw can vary |
+| Iterative generic | Draft, then revise using audit feedback | Weak feedback can yield rephrasing; more rounds do not create missing experiments |
+| DRPG-style | Prompt decomposition, retrieval, planning, response | Local prompt adaptation, not the original published system; explicit stages can still be wrong |
+| Retrieval only | Emit retrieved source passages | Exact matching does not establish relevance or resolution |
+| Peerify-style verify | Diagnose review claims against the manuscript | Local diagnostic adapter, typically no patch; copied original scores do not measure verification accuracy |
+| Random budget | Select feasible actions randomly | Budget feasibility is not semantic relevance |
+| Cost greedy | Select by estimated utility and cost | A cheap distractor can win if the input estimates are wrong |
+| All feasible | Include actions that fit budget and constraints | Not unlimited insertion; feasibility is not efficacy |
+| Oracle selector | Optimize estimated utility in a small pool | No access to future expert outcomes; not an outcome oracle |
+| EvidencePatch variants | Estimate validity, relevance, uncertainty, risk, then plan | Retrieval can miss evidence and estimates can be wrong; independent adjudication is required |
+
+## Before and after: one authored input, real adapter executions
+
+For publicly inspectable screenshots, we wrote a short **ToyScope example manuscript**. It specifies seed 7 and learning rate 0.01, and explicitly says no label-noise experiment has run. The authored review asks for these settings and a robustness experiment. The candidate pool includes an exact but irrelevant RGB-storage passage, and the budget is 1.
+
+This new mechanism demonstration executes the actual adapters. Model-backed adapters call MiniMax-M3; the remaining controls run locally. It has no review scores and is not a sample from the 100/300-paper studies. Each screenshot shows the frozen manuscript and feedback on the left and appended material or a diagnostic on the right. It does not disguise supplementary text as a rewritten manuscript. Click each screenshot for full resolution or [open the readable HTML casebook]({{ '/assets/revision-casebook/index.html' | relative_url }}). The [public casebook](https://github.com/FengxianJi/EvidencePatch/tree/main/examples/revision_casebook) contains inputs, outputs, estimates, and screenshot source pages.
+
+### One-shot, iterative, and structured generation
+
+One-shot generation attempts a response to the supplied concerns. Iterative generation takes explicit audit feedback back into revision. DRPG-style separates concerns and actions within a prompted pipeline. Inspect whether the response preserves the missing-experiment state and whether it merely repeats existing text. Neither output length nor polished wording in this demonstration establishes superiority.
+
+[![Before and after three generation strategies]({{ '/assets/revision-casebook/generation.png' | relative_url }})]({{ '/assets/revision-casebook/generation.png' | relative_url }})
+
+### Retrieval and verification answer different questions
+
+Retrieval can accurately locate the seed statement while placing the RGB passage next to a robustness concern. The latter passes a source-string check but provides no robustness measurement. Peerify-style returns a claim diagnostic without a manuscript patch; frozen-original changes nothing. These are preservation, localization, and diagnosis, so appendix length is an unsuitable common success measure.
+
+[![Before and after frozen-original, retrieval, and verification]({{ '/assets/revision-casebook/retrieval_verification.png' | relative_url }})]({{ '/assets/revision-casebook/retrieval_verification.png' | relative_url }})
+
+### Budget selection is not scientific judgment
+
+The four selectors share the same candidate pool, budget, and input utility estimates. We deliberately make the RGB distractor cheap and give it an overly favorable input utility to illustrate the difference between optimizing supplied numbers and selecting scientifically useful evidence. This constructed setup explains a mechanism; it does not show that a particular selector necessarily fails on real papers. The oracle selector also optimizes estimated utility, not future expert judgments.
+
+[![Before and after four budget selectors]({{ '/assets/revision-casebook/selection.png' | relative_url }})]({{ '/assets/revision-casebook/selection.png' | relative_url }})
+
+In this saved run, cost greedy selected the RGB distractor; random and estimated-utility oracle selected the seed, and all-feasible selected the learning rate. All three generative methods correctly acknowledged the missing noise experiment without reporting invented measurements. Concrete behavior matters; generic methods should not be presumed to fabricate.
+
+## EvidencePatch in detail: assess what evidence can do before selecting a patch
+
+The original risk-aware variant reads concerns and exact quotes. The BM25 configuration adds full review context after candidate construction. Section-context supplies retrieved source sections to the estimator. The casebook supplies the same authored exact candidates to isolate the three adapters' estimation and selection behavior; it does not regenerate the historical BM25 retrieval study.
+
+[![Before and after the three EvidencePatch variants]({{ '/assets/revision-casebook/evidencepatch.png' | relative_url }})]({{ '/assets/revision-casebook/evidencepatch.png' | relative_url }})
+
+The close-up includes four boundary situations:
+
+- **Existing evidence:** source pointers may address seed or learning-rate accessibility; cost, uncertainty, risk, and budget determine the selection.
+- **Missing experiment:** no eligible result-supporting candidate produces abstention or an empty patch. Resolution cannot be inferred from a text with no experimental result.
+- **Invalid source:** the case wrapper first applies the existing lexical provenance check and removes an invented “99 percent robustness” quote before invoking the adapter. This is the prefilter-plus-selection combination, not a claim that the adapter internally verifies everything.
+- **Insufficient budget:** a cost-1 action is infeasible under budget 0. This is a feasibility check, not another model score.
+
+[![EvidencePatch candidate estimates and four boundary situations]({{ '/assets/revision-casebook/evidencepatch_focus.png' | relative_url }})]({{ '/assets/revision-casebook/evidencepatch_focus.png' | relative_url }})
+
+All three EvidencePatch variants abstained on the RGB distractor and selected the seed within budget. The learning rate was estimated selectable but deferred by the plan. “Evidence exists but is deferred” differs from “an experiment is missing.” EvidencePatch also spends an extra model call on estimation; this authored demonstration is not a cost-matched efficacy comparison.
+
+These cases make the distinction concrete: **source provenance, adequacy for a specific concern, and impact on the overall recommendation are separate judgments.** EvidencePatch records traceable actions and model estimates; those estimates still need independent adjudication.
 
 ## Turning a concern into an action
 

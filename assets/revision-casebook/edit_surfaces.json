@@ -1,0 +1,17 @@
+{
+  "scope": "Manually authored editing-surface illustrations. Not adapter executions or study evidence.",
+  "forms": [
+    {
+      "name": "Main-text rewrite / illustration only",
+      "before": "Our runs use random seed 7. The learning rate is 0.01.",
+      "after": "The training protocol fixes random seed 7 and a learning rate of 0.01.",
+      "effect": "Same stated facts, different presentation. No extra measurement or score."
+    },
+    {
+      "name": "Internal protocol anchor / illustration only",
+      "before": "Our runs use random seed 7.",
+      "after": "Our runs use random seed 7 (see Protocol Note S1).\n\nProtocol Note S1: The original protocol specifies random seed 7.",
+      "effect": "An internal navigation anchor to the same authored source, not an external bibliography entry or a new experiment."
+    }
+  ]
+}

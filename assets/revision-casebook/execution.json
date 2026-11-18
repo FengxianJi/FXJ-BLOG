@@ -1,0 +1,11 @@
+{
+  "scope": "Only the authored synthetic casebook run, separate from main/development experiments.",
+  "model": "MiniMax-M3",
+  "region": "China",
+  "gpu_used": false,
+  "api_events": 15,
+  "reported_tokens": 6414,
+  "completed_methods": 13,
+  "review_score_calls": 0,
+  "notes": "Includes retries and a resumed iterative generation after provider HTTP 529. No raw request ledger, credentials or original study text is published."
+}

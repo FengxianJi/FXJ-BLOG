@@ -10,6 +10,7 @@ author: "Fengxian Ji, Fan Zhang, Jingpu Yang, Zhuohan Xie"
 translation_url: /en/research/2026/11/17/evidence-only-appendices/
 comments: true
 math: true
+figure_count: 13
 ---
 
 **代码与实验资源：** [GitHub 仓库](https://github.com/FengxianJi/EvidencePatch) · [结果与图表](https://github.com/FengxianJi/EvidencePatch/tree/main/results) · [下载 ZIP](https://github.com/FengxianJi/EvidencePatch/archive/refs/heads/main.zip)
@@ -23,6 +24,89 @@ EvidencePatch 围绕这个问题展开。我们希望将审稿意见转成可核
 ![EvidencePatch 方法流程、指标脱节与评审稳定性主图]({{ '/assets/evidencepatch-feedback/main_framework.svg' | relative_url }})
 
 *图 1｜主图分三层：上层为方法工作流，中层为分开报告的局部代理与整体评分，下层为重复审稿稳定性。两项指标的尺度与合格样本不同，不比较数值大小。*
+
+## 先区分：按照审稿意见修改，究竟改了什么？
+
+“修改论文”至少包含三个不同维度：**改哪个位置、用什么策略、依据什么判断成功。**正文重写、回复信、交叉引用和实验附录是不同的呈现位置；单轮生成、反馈迭代、检索、验证与预算规划则是不同策略。不能把所有策略都称作“加附录”，也不能把所有回应都当成新增证据。
+
+例如，同一条“请说明随机种子，并补充噪声鲁棒性实验”的意见，可以有两部分：种子已经写在论文里，补上位置引用即可；噪声实验没有做，重新写一遍正文也不会产生测量结果。有效修订应分别处理这两部分，而不是用一个更流畅的段落笼统地声称问题解决。
+
+| 修订形式 | 可能改变什么 | 常见风险与本文覆盖范围 |
+|---|---|---|
+| 正文重写或扩写 | 解释顺序、措辞、段落结构 | 容易把表述更明确误当作证据更充分；本文未完成大规模完整正文重写评估 |
+| 正文交叉引用或定位锚点 | 引导读者找到既有材料 | 指向正确位置不等于材料足以回答问题；十篇 RSI 开发试验包含派生正文引用锚点 |
+| 审稿回复、澄清说明 | 将回应对应到审稿问题 | 回应可以正确承认局限，整体推荐仍可能保持不变 |
+| 既有证据附录 | 汇总原文、协议和结果位置 | 材料可能精确但不相关；300 篇 C0–C5 主要检验这一受限干预 |
+| 新增真实实验及其报告 | 补上原本不存在的测量 | 需要真实执行、结果校验和成本预算；未运行的实验协议不能当结果 |
+
+我们的十个基线主要在相同的冻结正文接口下输出附录、证据索引或验证诊断。**这里比较的是修订策略，不是已经完成所有正文编辑形式的效果比较。**EvidencePatch 的动作设计覆盖证据定位、澄清、实验或停止；当前大样本的证据附录结果只验证了其中一部分。
+
+[![正文改写与引用锚点的前后示意]({{ '/assets/revision-casebook/edit_surfaces.png' | relative_url }})]({{ '/assets/revision-casebook/edit_surfaces.png' | relative_url }})
+
+*编辑形式示意｜自写示例上的手工改写与内部协议交叉引用，不是已评估方法的输出。图中没有新增实验数据。其余截图才来自实际运行的适配器。*
+
+## 各类方法如何修改，又各有什么局限？
+
+下面的不足包括实现可以直接看出的边界，以及尚待验证的风险；不是对每种方法都已证实的失败原因。所有通用生成器也被要求不编造结果，EvidencePatch 的区别在于显式估计候选证据价值、风险和预算，而非声称只有它遵守事实。
+
+| 方法 | 它实际做什么 | 需要警惕的边界 |
+|---|---|---|
+| Frozen original | 保持原稿 | 参考条件，不是修订方法 |
+| One-shot generic | 一次生成回应 | 有可读回应不等于证据充分；单次结果可能波动 |
+| Iterative generic | 起草后根据审计反馈再修订 | 无实质反馈时可能只改写；轮数不创造缺失实验 |
+| DRPG-style | 在提示中拆分、检索、规划并回应 | 是本地提示适配，不是原论文系统复现；显式步骤本身不保证判断正确 |
+| Retrieval only | 输出检索到的证据片段 | 字面匹配不能证明片段回答质疑 |
+| Peerify-style verify | 判断审稿主张与原稿的关系 | 本地诊断适配，通常不产生补丁；不能把复制原文的评分当验证准确率 |
+| Random budget | 随机选可行动作 | 可满足预算，却不保证语义相关 |
+| Cost-greedy | 按预估收益与成本选动作 | 预估不准时，低成本但无关的片段也可能被选中 |
+| All feasible | 在预算和约束内加入可行动作 | 不是无限制全加；可行不等于有效 |
+| Oracle selector | 在小候选池中优化预估效用 | 只对给定估计近似“上界”，看不到真实专家结局 |
+| EvidencePatch variants | 估计有效性、相关性、风险与不确定性，再作预算选择 | 检索可能漏证据，估计和规划也可能错误；需独立评估 |
+
+## 逐个看修改前后：同一份自写输入，真实运行各方法
+
+为让截图可以公开核查，我们编写了一份短的 **ToyScope 示例稿**，明示种子为 7、学习率为 0.01，同时明示没有噪声实验。审稿式反馈要求定位前两项并增加噪声实验。候选池还放入“RGB 存储”这一精确但不回答噪声问题的干扰片段，预算为 1。
+
+这是一组新运行的机制演示，使用实际方法代码；需要语言模型的适配器调用 MiniMax-M3，其余本地执行。它没有新增评分，不属于 100/300 篇研究样本。截图左栏是冻结正文与反馈，右栏是追加材料或诊断，并非把附录伪装成重写后的正文。点击截图可以打开原尺寸；也可[打开可读网页案例册]({{ '/assets/revision-casebook/index.html' | relative_url }})。完整输入、输出、模型估计与截图网页都在[公开案例册](https://github.com/FengxianJi/EvidencePatch/tree/main/examples/revision_casebook)。
+
+### 单轮、迭代与结构化生成
+
+单轮通用生成先尝试回应所有意见；迭代通用生成把“缺少实验”之类的审计反馈带回下一次修改；DRPG-style 在同一个提示中拆出质疑和动作。要观察的是回应是否保留缺失证据的状态、是否仅重述原文，而不是只看它写得是否更完整。这里不能从演示中的篇幅或语气推断哪个方法更强。
+
+[![三个生成策略的修改前后截图]({{ '/assets/revision-casebook/generation.png' | relative_url }})]({{ '/assets/revision-casebook/generation.png' | relative_url }})
+
+### 检索和验证解决的是不同问题
+
+检索可以准确找到包含种子的句子，也可能把“RGB 格式”贴到“噪声鲁棒性”的问题下面。后者即使通过字面来源检查，也不提供鲁棒性结果。Peerify-style 输出的是对主张的验证诊断，其“AFTER”仍然没有正文补丁；Frozen original 则完全不改。这三者分别衡量保留、定位和诊断，不能仅凭附录长度比较。
+
+[![冻结原文、检索、验证的前后截图]({{ '/assets/revision-casebook/retrieval_verification.png' | relative_url }})]({{ '/assets/revision-casebook/retrieval_verification.png' | relative_url }})
+
+### 预算选择不等于科学判断
+
+四种选择器拿到同一候选池、预算与预估效用。示例中故意让 RGB 干扰片段便宜且有偏高的输入收益估计，以展示“优化所给数字”和“选到科学上有效证据”之间的差别。这个设置解释机制，不是证明某个规划基线在真实论文中必然失败。Oracle selector 同样使用预估效用，不是知道最终专家评价的神谕。
+
+[![四个预算选择策略的前后截图]({{ '/assets/revision-casebook/selection.png' | relative_url }})]({{ '/assets/revision-casebook/selection.png' | relative_url }})
+
+本次保存的输出中，成本贪心选择了 RGB 干扰片段；随机与估计效用 oracle 选择了种子，All feasible 选择了学习率。三个生成型方法都正确承认噪声实验缺失，没有凭空报告测量。这说明我们需要比较具体行为，不能预设通用方法一定会编造。
+
+## EvidencePatch 重点：先判断证据能做什么，再决定加什么
+
+三个 EvidencePatch 变体共享风险感知选择思想：原始变体读取质疑和精确引文；BM25 配置在构建候选后加入原评审上下文；section-context 配置再提供检索到的完整来源段落。案例册统一提供自写精确候选，隔离展示这三个适配器的估计和选择；它不重新复现历史 BM25 候选检索实验。
+
+[![三个 EvidencePatch 变体的前后截图]({{ '/assets/revision-casebook/evidencepatch.png' | relative_url }})]({{ '/assets/revision-casebook/evidencepatch.png' | relative_url }})
+
+我们特别展示四个边界情况：
+
+- **已有证据。** 只能定位种子或学习率等来源句子；最终能选几个由成本、风险与预算决定。
+- **缺少实验。** 没有支持结果的合格候选，输出空补丁/不执行；“已解决”不能从没有实验的文本中推断。
+- **错误来源。** 案例包装器先调用已有字面来源检查，排除并不存在的“99% 鲁棒性”句子，再运行适配器；这展示的是前置校验加选择的组合，不是适配器会自行验证一切。
+- **预算不足。** 一个成本为 1 的动作在预算 0 下不可选。这是可行性检查，不是另一次模型评分。
+
+[![EvidencePatch 的候选判断和四个边界情况截图]({{ '/assets/revision-casebook/evidencepatch_focus.png' | relative_url }})]({{ '/assets/revision-casebook/evidencepatch_focus.png' | relative_url }})
+
+本次三个 EvidencePatch 变体都弃选 RGB 干扰片段，并在预算内选择种子；学习率虽被估计为可选，但本轮没有被选入。这是“有来源且可能相关，但预算内暂缓”和“根本缺少实验”两种不同状态。EvidencePatch 额外使用了模型估计调用，因此这个自写演示也不是成本匹配的效果检验。
+
+这些情况解释了我们真正想保留的区别：**补丁是否有来源，补丁是否回应质疑，以及回应是否足以改变整体推荐，是三个连续却不同的判断。**EvidencePatch 当前能生成可追溯动作与估计记录，但其估计仍由模型给出，并不能替代专家裁定。
 
 ## 从一条审稿质疑开始
 
