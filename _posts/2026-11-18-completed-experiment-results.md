@@ -6,11 +6,8 @@ categories: research
 permalink: /research/2026/11/18/completed-experiment-results/
 lang: zh-CN
 translation_url: /en/research/2026/11/18/completed-experiment-results/
-author: "Fengxian Ji, Fan Zhang, Zhuohan Xie"
 comments: true
 ---
-
-**作者：Fengxian Ji, Fan Zhang, Zhuohan Xie**
 
 本文汇总已经完成并有对应指标文件的评分实验。表格和图只展示聚合数据；评分变化是 AI 审稿评分代理，不等于专家确认的质疑解决，也不代表论文科学质量发生变化。95% 置信区间按论文 bootstrap 计算。
 
@@ -101,21 +98,3 @@ M3 主实验和复跑、Mistral、Qwen3 结果分别列出，不将不同评审�
 [下载 PDF 图版]({{ '/assets/results-2026-11-18/figure_04_unified_repeat03.pdf' | relative_url }})
 
 本页只纳入完整评分面板的汇总数据。专家标注结论不在这些评分指标中；对照和复评结果也按各自实验设计分别报告。
-
-## 引用本文
-
-### APA 7
-Ji, F., Zhang, F., & Xie, Z. (2026, November 18). *EvidencePatch 已完成实验结果：表格与图*. FXJ Research Notes. https://fengxianji.github.io/FXJ-BLOG/research/2026/11/18/completed-experiment-results/
-
-### 中文网络文献格式
-Ji F, Zhang F, Xie Z. EvidencePatch 已完成实验结果：表格与图[EB/OL]. (2026-11-18) [2026-11-18]. https://fengxianji.github.io/FXJ-BLOG/research/2026/11/18/completed-experiment-results/
-
-### BibTeX
-<pre>@misc{ji_zhang_xie_2026_completed_results,
-  author = {Ji, Fengxian and Zhang, Fan and Xie, Zhuohan},
-  title = {EvidencePatch 已完成实验结果：表格与图},
-  howpublished = {FXJ Research Notes},
-  year = {2026},
-  month = {nov},
-  url = {https://fengxianji.github.io/FXJ-BLOG/research/2026/11/18/completed-experiment-results/}
-}</pre>

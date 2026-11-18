@@ -6,11 +6,8 @@ categories: research
 permalink: /en/research/2026/11/18/completed-experiment-results/
 lang: en
 translation_url: /research/2026/11/18/completed-experiment-results/
-author: "Fengxian Ji, Fan Zhang, Zhuohan Xie"
 comments: true
 ---
-
-**Authors: Fengxian Ji, Fan Zhang, Zhuohan Xie**
 
 This post collects completed score-evaluation panels with aggregate metrics. The scores are AI-reviewer proxies; they are not expert-confirmed concern resolution and do not establish a change in scientific quality. The 95% confidence intervals use paper-level bootstrap resampling.
 
@@ -101,18 +98,3 @@ This is a unified blind rescore on the same 100-paper development cohort, not a 
 [下载 PDF 图版]({{ '/assets/results-2026-11-18/figure_04_unified_repeat03.pdf' | relative_url }})
 
 Only aggregate results from completed score panels are included here. Expert annotations are not part of these score metrics; results from separate designs are reported separately.
-
-## Cite this post
-
-### APA 7
-Ji, F., Zhang, F., & Xie, Z. (2026, November 18). *EvidencePatch: Completed Experiment Results, Tables, and Figures*. FXJ Research Notes. https://fengxianji.github.io/FXJ-BLOG/en/research/2026/11/18/completed-experiment-results/
-
-### BibTeX
-<pre>@misc{ji_zhang_xie_2026_completed_results_en,
-  author = {Ji, Fengxian and Zhang, Fan and Xie, Zhuohan},
-  title = {EvidencePatch: Completed Experiment Results, Tables, and Figures},
-  howpublished = {FXJ Research Notes},
-  year = {2026},
-  month = {nov},
-  url = {https://fengxianji.github.io/FXJ-BLOG/en/research/2026/11/18/completed-experiment-results/}
-}</pre>

@@ -4,7 +4,6 @@ title: "我们给 300 篇论文补充了证据，AI 审稿评分却下降了"
 date: 2026-11-17 10:00:00 +0000
 categories: research
 lang: zh-CN
-author: "Fengxian Ji, Fan Zhang, Zhuohan Xie"
 translation_url: /en/research/2026/11/17/evidence-only-appendices/
 comments: true
 ---
@@ -39,4 +38,4 @@ AI 评分可能因很多原因变化：证据更容易找到、模型偏好某�
 
 ## 已完成实验的表格与图
 
-作者：Fengxian Ji, Fan Zhang, Zhuohan Xie。 [查看双语实验结果汇总]({{ '/research/2026/11/18/completed-experiment-results/' | relative_url }})。
+[查看双语实验结果汇总]({{ '/research/2026/11/18/completed-experiment-results/' | relative_url }})。

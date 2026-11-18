@@ -5,7 +5,6 @@ date: 2026-11-17 10:00:00 +0000
 categories: research
 permalink: /en/research/2026/11/17/evidence-only-appendices/
 lang: en
-author: "Fengxian Ji, Fan Zhang, Zhuohan Xie"
 translation_url: /research/2026/11/17/evidence-only-appendices/
 comments: true
 ---
@@ -40,4 +39,4 @@ We cannot conclude that appendices are useless, that adding a genuinely needed e
 
 ## Completed results, tables, and figures
 
-Authors: Fengxian Ji, Fan Zhang, Zhuohan Xie. [See the bilingual experiment-results summary]({{ '/en/research/2026/11/18/completed-experiment-results/' | relative_url }}).
+[See the bilingual experiment-results summary]({{ '/en/research/2026/11/18/completed-experiment-results/' | relative_url }}).
