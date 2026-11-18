@@ -256,6 +256,7 @@ Fengxian Ji, Fan Zhang, Jingpu Yang, Zhuohan Xie. (2026). *EvidencePatch：根�
 
 [下载 BibTeX]({{ '/assets/citations/evidencepatch.bib' | relative_url }})。
 
+{% raw %}
 ```bibtex
 @misc{ji2026evidencepatch,
   author       = {Ji, Fengxian and Zhang, Fan and Yang, Jingpu and Xie, Zhuohan},
@@ -266,3 +267,4 @@ Fengxian Ji, Fan Zhang, Jingpu Yang, Zhuohan Xie. (2026). *EvidencePatch：根�
   note         = {Research blog; accompanying code and experimental resources: https://github.com/FengxianJi/EvidencePatch}
 }
 ```
+{% endraw %}
